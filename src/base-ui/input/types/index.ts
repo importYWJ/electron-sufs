@@ -4,11 +4,14 @@ export interface IInputItem {
   rules?: any;
   placeholder?: any;
   options?: any[];
-  hasButton?: boolean;
-  btnName?: string;
   hasAppend?: boolean;
   appendValue?: string;
   hasPrepend?: boolean;
+  hasButton?: boolean;
+  btnName?: string;
+  action?: string;
+  fileList?: Array<any>;
+  accept?: string;
 }
 
 export interface IInput {

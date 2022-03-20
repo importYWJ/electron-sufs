@@ -60,6 +60,8 @@ import WjInput from "@/base-ui/input";
 import WjTable from "@/base-ui/table";
 import WjForm from "@/base-ui/form";
 
+// import type { UploadUserFile } from "element-plus";
+
 export default defineComponent({
   components: {
     WjInput,
@@ -73,6 +75,63 @@ export default defineComponent({
       formOriginData[item.field] = "";
     }
     const formData = ref(formOriginData);
+
+    const fileList = ref<any[]>([
+      {
+        name: "food.jpeg",
+        url: "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
+      },
+      {
+        name: "food2.jpeg",
+        url: "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
+      },
+    ]);
+    // const btnClick = async () => {
+    //   console.log("文件上传");
+    //   await window.showOpenFilePicker({
+    //     types: [
+    //       {
+    //         description: "这只是一个描述",
+    //         accept: {
+    //           // 'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
+    //           // "text/plain": [".txt"],
+    //           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+    //             [".xlsx"],
+    //         },
+    //       },
+    //     ],
+    //     excludeAcceptAllOption: false, // 有一个选项的按钮
+    //   });
+    // };
+
+    // window.onload = function () {
+    //   const fileUploader = document.getElementById("FileUploader");
+    //   const pathDisplayer = document.getElementById("PathDisplayer");
+    //   if (fileUploader?.addEventListener) {
+    //     fileUploader.addEventListener(
+    //       "change",
+    //       fileUploaderChangeHandler,
+    //       false
+    //     );
+    //   } else if (fileUploader?.attachEvent) {
+    //     fileUploader?.attachEvent("onclick", fileUploaderClickHandler);
+    //   } else {
+    //     fileUploader.onchange = fileUploaderChangeHandler;
+    //   }
+    //   function fileUploaderChangeHandler() {
+    //     pathDisplayer.value = fileUploader.value;
+    //   }
+    //   function fileUploaderClickHandler() {
+    //     setTimeout(function () {
+    //       fileUploaderChangeHandler();
+    //     }, 0);
+    //   }
+    // };
+    const uploadEl = ref("");
+    // const btnClick = () => {
+    //   uploadEl.value.onclick = () => {};
+    // };
+
     return {
       pipeLineFileConfig,
       pipelineTableConfig,
@@ -86,6 +145,9 @@ export default defineComponent({
       pipeStepRegulationConfig,
       pipeModelBtnConfig,
       formData,
+      fileList,
+      // btnClick,
+      uploadEl,
     };
   },
 });

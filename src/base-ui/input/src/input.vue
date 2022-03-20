@@ -9,26 +9,37 @@
             :style="itemStyle"
           >
             <div class="inputItem">
-              <el-input
-                :placeholder="item.placeholder"
-                :model-value="modelValue[`${item.field}`]"
-                @input="handleValueChange($event, item.field)"
-                :disabled="disable"
-                clearable
-              >
-                <template v-if="item.hasAppend" #append>
-                  {{ item.appendValue }}
-                </template>
-                <template v-if="item.hasPrepend" #prepend>
-                  {{ item.appendValue }}
-                </template>
-              </el-input>
               <template v-if="item.hasButton">
-                <!-- <el-upload> -->
-                <el-button type="primary" :disabled="disable">
+                <el-input
+                  :placeholder="item.placeholder"
+                  :model-value="modelValue[`${item.field}`]?.path ?? ''"
+                  :disabled="disable"
+                >
+                </el-input>
+                <el-button class="upload" type="primary">
                   {{ item.btnName }}
+                  <input
+                    type="file"
+                    :accept="item.accept"
+                    @change="handleFileChange($event.target, item.field)"
+                  />
                 </el-button>
-                <!-- </el-upload> -->
+              </template>
+              <template v-else>
+                <el-input
+                  :placeholder="item.placeholder"
+                  :model-value="modelValue[`${item.field}`]"
+                  @input="handleValueChange($event, item.field)"
+                  :disabled="disable"
+                  clearable
+                >
+                  <template v-if="item.hasAppend" #append>
+                    {{ item.appendValue }}
+                  </template>
+                  <template v-if="item.hasPrepend" #prepend>
+                    {{ item.appendValue }}
+                  </template>
+                </el-input>
               </template>
             </div>
           </el-form-item>
@@ -39,9 +50,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, computed } from "vue";
 import { IInputItem } from "@/base-ui/input/types";
-import { dialog, remote } from "electron";
+// import type { UploadUserFile } from "element-plus";
 
 export default defineComponent({
   props: {
@@ -79,26 +90,37 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    // action: {
+    //   type: String,
+    //   required: true,
+    // },
+    // fileList: {
+    //   type: Array as PropType<any[]>,
+    //   default: () => [],
+    // },
+    // accept: {
+    //   type: String,
+    //   deafult: "",
+    // },
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
+    const filesValue = computed(() => {
+      return props.modelValue;
+    });
     const handleValueChange = (value: any, field: string) => {
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
-    const btnClick = () => {
-      remote.dialog
-        .showOpenDialog({
-          properties: ["openFile", "openDirectory"],
-        })
-        .then((result) => {
-          console.log(result.canceled);
-          console.log(result.filePaths);
-        })
-        .catch((err) => {
-          console.log(err);
+    const handleFileChange = (inputEl: HTMLInputElement, field: string) => {
+      const file = inputEl?.files;
+      if (file !== null) {
+        emit("update:modelValue", {
+          ...props.modelValue,
+          [field]: { file: file[0], path: file[0].path },
         });
+      }
     };
-    return { handleValueChange };
+    return { handleValueChange, handleFileChange, filesValue };
   },
 });
 </script>
@@ -114,6 +136,17 @@ export default defineComponent({
   }
   .el-button {
     width: 150px;
+  }
+  .upload {
+    position: relative; // 关键
+    overflow: hidden; // 关键
+  }
+  input[type="file"] {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0; // 关键(隐藏字体)
+    cursor: pointer;
   }
 }
 </style>

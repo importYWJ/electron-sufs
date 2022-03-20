@@ -81,6 +81,19 @@ export const DEMfileConfig: IInput = {
       ],
       hasButton: true,
       btnName: "打开文件",
+      action: "http://localhost:8000/model/getfile",
+      fileList: [
+        // {
+        //   name: "书籍-发票",
+        //   url: "C:/Users/Administrator/Desktop/书籍-发票.jfif",
+        // },
+        {
+          name: "food.jpeg",
+          url: "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
+        },
+      ],
+      // accept: ".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF",
+      accept: "image/*,",
     },
   ],
   itemStyle: {

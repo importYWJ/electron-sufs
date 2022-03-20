@@ -13,3 +13,10 @@ export function getModelRunning(url: string, parList: any): Promise<any> {
     data: parList,
   });
 }
+
+export function postModelConfig(url: string, parList: any): Promise<any> {
+  return wjRequest.post({
+    url: url,
+    data: parList,
+  });
+}

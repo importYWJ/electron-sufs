@@ -54,12 +54,15 @@
         <wj-form v-bind="pipeModelConfig" v-model="formData" />
       </el-tab-pane>
     </el-tabs>
-    <div class="build"><el-button type="primary">建立模型</el-button></div>
+    <div class="build">
+      <el-button type="primary" @click="handleBuildModel">建立模型</el-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useStore } from "@/store";
 import {
   basicInfoConfig,
   modelTypeConfig,
@@ -89,6 +92,15 @@ export default defineComponent({
     const infiltrateStyle = ref("file");
     const evaporateStyle = ref("file");
 
+    const store = useStore();
+    const handleBuildModel = () => {
+      // dispatch, 提交数值
+      store.dispatch("modelModule/modelConfigAction", {
+        pageUrl: "/model/model_build",
+        modelData: formData.value,
+      });
+      // 收集file, append入formdata, 提交文件
+    };
     return {
       basicInfoConfig,
       modelTypeConfig,
@@ -103,6 +115,7 @@ export default defineComponent({
       formData,
       infiltrateStyle,
       evaporateStyle,
+      handleBuildModel,
     };
   },
 });
