@@ -21,7 +21,7 @@
                   <input
                     type="file"
                     :accept="item.accept"
-                    @change="handleFileChange($event.target, item.field)"
+                    @change="handleFileChange($event.target.files, item.field)"
                   />
                 </el-button>
               </template>
@@ -50,9 +50,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from "vue";
+import { defineComponent, PropType } from "vue";
 import { IInputItem } from "@/base-ui/input/types";
-// import type { UploadUserFile } from "element-plus";
 
 export default defineComponent({
   props: {
@@ -105,22 +104,18 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
-    const filesValue = computed(() => {
-      return props.modelValue;
-    });
     const handleValueChange = (value: any, field: string) => {
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
-    const handleFileChange = (inputEl: HTMLInputElement, field: string) => {
-      const file = inputEl?.files;
-      if (file !== null) {
+    const handleFileChange = (files: any, field: string) => {
+      if (files !== null) {
         emit("update:modelValue", {
           ...props.modelValue,
-          [field]: { file: file[0], path: file[0].path },
+          [field]: { file: files[0], path: files[0].path },
         });
       }
     };
-    return { handleValueChange, handleFileChange, filesValue };
+    return { handleValueChange, handleFileChange };
   },
 });
 </script>
