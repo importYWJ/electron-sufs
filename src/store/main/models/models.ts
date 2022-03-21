@@ -1,8 +1,12 @@
 import { Module } from "vuex";
 import { IModelState, IModelItem } from "./types";
 import { IRootState } from "@/store/types";
-import { getTableList, postModelConfig } from "@/service/main/models/models";
-import axios from "axios";
+import {
+  getTableList,
+  addModelConfig,
+  deleteModelConfig,
+  queryModelConfig,
+} from "@/service/main/models/models";
 
 const modelModule: Module<IModelState, IRootState> = {
   namespaced: true,
@@ -46,11 +50,21 @@ const modelModule: Module<IModelState, IRootState> = {
     },
     // 模型构建表单提交
     async modelConfigAction({ commit }, payload: any) {
-      const response = await postModelConfig(
+      const response = await addModelConfig(payload.pageUrl, payload.modelData);
+      console.log(response);
+    },
+    // 删除模型
+    async modelDeleteAction({ commit }, payload: any) {
+      const response = await deleteModelConfig(
         payload.pageUrl,
-        payload.modelData
+        payload.modelID
       );
       console.log(response);
+    },
+    // 编辑/查询模型
+    async modelQueryAction({ commit }, payload: any) {
+      const result = await queryModelConfig(payload.pageUrl, payload.modelID);
+      console.log(result);
     },
   },
 };

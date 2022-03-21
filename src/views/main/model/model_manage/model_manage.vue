@@ -1,16 +1,5 @@
 <template>
   <div class="model-manage">
-    <!-- <div class="formContent">
-      <wj-form v-bind="formConfig" v-model="formData">
-        <template #header>
-          <h1>模型构建</h1>
-        </template>
-        <template #footer>
-          <el-button @click="handleResetClick">重置</el-button>
-          <el-button type="primary">建立模型</el-button>
-        </template>
-      </wj-form>
-    </div> -->
     <div class="tableContent">
       <wj-table
         v-bind="tableConfig"
@@ -24,7 +13,14 @@
         </template>
         <template #handler="scope">
           <div class="handle-btns">
-            <el-button size="small" type="text" :icon="Edit"> 编辑 </el-button>
+            <el-button
+              size="small"
+              type="text"
+              :icon="Edit"
+              @click="handleEditClick(scope.row)"
+            >
+              编辑
+            </el-button>
             <el-button
               size="small"
               type="text"
@@ -64,7 +60,7 @@ export default defineComponent({
 
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch("modelModule/loadModelListAction", {
-        pageUrl: "/model/model_manage", // 后端路由和前端路由一致
+        pageUrl: "/model/queryAll",
         queryInfo: {
           offset: pageInfo.value.currentPage * pageInfo.value.pageSize, // 偏移(可用于分页)
           size: pageInfo.value.pageSize, // 一次展示数量
@@ -89,8 +85,20 @@ export default defineComponent({
       console.log("查询按钮点击事件~");
     };
 
+    const handleEditClick = (item: any) => {
+      console.log("编辑:", item.scid);
+      store.dispatch("modelModule/modelQueryAction", {
+        pageUrl: "/model/query",
+        modelID: item.scid,
+      });
+    };
+
     const handleDeleteClick = (item: any) => {
-      console.log(`删除${item[0]}`);
+      console.log("删除:", item.scid);
+      store.dispatch("modelModule/modelDeleteAction", {
+        pageUrl: "/model/delete",
+        modelID: item.scid,
+      });
     };
 
     const selectFoo = (value: any) => {
@@ -107,6 +115,7 @@ export default defineComponent({
       Delete,
       handleResetClick,
       handleSearchClick,
+      handleEditClick,
       handleDeleteClick,
       selectFoo,
     };

@@ -1,23 +1,28 @@
+import { IForm } from "@/base-ui/form";
 import { ITable } from "@/base-ui/table";
 
-export const modelTableConfig: ITable = {
-  title: "模型列表",
-  showSelectColumn: false,
-  showIndexColumn: true,
-  propList: [
-    { prop: "scid", label: "模型编号", minWidth: "180" },
-    { prop: "sceneryname", label: "模型名称", minWidth: "180" },
+export const basedModelConfig: IForm = {
+  formItems: [
     {
-      prop: "scid",
-      label: "创建时间",
-      minWidth: "180",
-      slotName: "createDate",
+      type: "select",
+      field: "modelID",
+      label: "模型名称",
+      placeholder: "请选择模型名称...",
+      options: [],
     },
-    { prop: "scenerytype", label: "模型类型", minWidth: "180" },
-    { prop: "description", label: "模型描述", minWidth: "180" },
-    { prop: "area", label: "模拟区域", minWidth: "180" },
-    { label: "模型操作", minWidth: "120", slotName: "handler" },
   ],
+  labelWidth: "80px",
+  itemStyle: {
+    padding: "5px 0px 5px 0px",
+    margin: "0px",
+  },
+  colLayout: {
+    xl: 24,
+    lg: 24,
+    md: 24,
+    sm: 24,
+    xs: 24,
+  },
 };
 
 export const simulateTableConfig: ITable = {

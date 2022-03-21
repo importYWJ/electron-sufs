@@ -46,7 +46,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from "vue";
-// import WjForm from "@/base-ui/form";
 import WjTable from "@/base-ui/table";
 import { Edit, Delete } from "@element-plus/icons-vue";
 import { formConfig, tableConfig } from "./config/pipe_manage.config";
@@ -54,7 +53,6 @@ import { useStore } from "@/store";
 
 export default defineComponent({
   components: {
-    // WjForm,
     WjTable,
   },
   setup() {
@@ -64,7 +62,7 @@ export default defineComponent({
 
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch("modelModule/loadModelListAction", {
-        pageUrl: "/model/model_manage", // 后端路由和前端路由一致
+        pageUrl: "/model/queryAll",
         queryInfo: {
           offset: pageInfo.value.currentPage * pageInfo.value.pageSize, // 偏移(可用于分页)
           size: pageInfo.value.pageSize, // 一次展示数量

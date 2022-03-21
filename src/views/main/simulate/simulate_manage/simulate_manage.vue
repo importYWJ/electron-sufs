@@ -1,31 +1,7 @@
 <template>
-  <div class="wj-form">
-    <div class="tableContent">
-      <wj-table
-        v-bind="modelTableConfig"
-        :tableData="tableData"
-        :dataCount="dataCount"
-        v-model:page="pageInfo"
-        @selectionChange="selectFoo"
-      >
-        <template #createDate="scope">
-          {{ $filters.formatTimestamp(scope.row.scid) }}
-        </template>
-        <template #handler="scope">
-          <div class="handle-btns">
-            <el-button size="small" type="text" :icon="Edit"> 编辑 </el-button>
-            <el-button
-              size="small"
-              type="text"
-              style="color: red"
-              :icon="Delete"
-              @click="handleDeleteClick(scope.row)"
-            >
-              删除</el-button
-            >
-          </div>
-        </template>
-      </wj-table>
+  <div>
+    <div class="formContent">
+      <wj-form v-bind="basedModelConfig" v-model="modelInfo" />
     </div>
     <div class="tableContent">
       <wj-table
@@ -40,7 +16,14 @@
         </template>
         <template #handler="scope">
           <div class="handle-btns">
-            <el-button size="small" type="text" :icon="Edit"> 编辑 </el-button>
+            <el-button
+              size="small"
+              type="text"
+              :icon="Edit"
+              @click="handleEditClick(scope.row)"
+            >
+              编辑
+            </el-button>
             <el-button
               size="small"
               type="text"
@@ -48,8 +31,8 @@
               :icon="Delete"
               @click="handleDeleteClick(scope.row)"
             >
-              删除</el-button
-            >
+              删除
+            </el-button>
           </div>
         </template>
       </wj-table>
@@ -58,10 +41,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from "vue";
+import { defineComponent, ref, watch, computed, onBeforeMount } from "vue";
+import WjForm from "@/base-ui/form";
 import WjTable from "@/base-ui/table";
 import {
-  modelTableConfig,
+  basedModelConfig,
   simulateTableConfig,
 } from "./config/simulate_manage.config";
 import { useStore } from "@/store";
@@ -69,25 +53,40 @@ import { Edit, Delete } from "@element-plus/icons-vue";
 
 export default defineComponent({
   components: {
+    WjForm,
     WjTable,
   },
   setup() {
     const store = useStore();
+    if (store.state.modelModule.modelList.length === 0) {
+      store.dispatch("modelModule/loadModelListAction", {
+        pageUrl: "/model/queryAll",
+      });
+    }
+    const getModelItems = () => {
+      basedModelConfig.formItems[0].options = [];
+      store.state.modelModule.modelList.forEach((item) => {
+        basedModelConfig.formItems[0].options?.push({
+          value: item.scid,
+          label: item.sceneryname,
+        });
+      });
+    };
+    onBeforeMount(getModelItems);
+    const modelInfo = ref({ modelID: "" });
+
     const pageInfo = ref({
       currentPage: 0,
       pageSize: 10,
-      modelID: "1646189996",
     });
-    watch(pageInfo, () => getPageData());
+    watch([modelInfo, pageInfo], () => getPageData());
     const getPageData = (queryInfo: any = {}) => {
-      console.log(pageInfo.value.modelID);
       store.dispatch("modelModule/loadSimulateListAction", {
-        pageUrl: "/simulate/simulate_manage",
-        // pageUrl: "/model/model_manage",
+        pageUrl: "/simulate/queryAll",
         queryInfo: {
           offset: pageInfo.value.currentPage * pageInfo.value.pageSize, // 偏移(可用于分页)
           size: pageInfo.value.pageSize, // 一次展示数量},
-          modelID: pageInfo.value.modelID,
+          modelID: modelInfo.value.modelID,
           ...queryInfo,
         },
       });
@@ -100,12 +99,31 @@ export default defineComponent({
     const simulateDataCount = computed(
       () => store.state.modelModule.simulateCount
     );
+
+    const handleEditClick = (item: any) => {
+      console.log("编辑:", item);
+      store.dispatch("modelModule/modelQueryAction", {
+        pageUrl: "/simulate/query",
+        modelID: item.sid,
+      });
+    };
+
+    const handleDeleteClick = (item: any) => {
+      console.log("删除:", item.scid);
+      store.dispatch("modelModule/modelDeleteAction", {
+        pageUrl: "/simulate/delete",
+        modelID: item.sid,
+      });
+    };
     return {
-      modelTableConfig,
+      basedModelConfig,
       simulateTableConfig,
       simulateTableData,
+      modelInfo,
       pageInfo,
       simulateDataCount,
+      handleEditClick,
+      handleDeleteClick,
       Edit,
       Delete,
     };
@@ -115,12 +133,13 @@ export default defineComponent({
 
 <style scoped lang="less">
 .wj-form {
-  height: 100%;
-  width: 100%;
-  .tableContent {
-    background-color: #fff;
-    padding: 20px;
-    border-top: 20px solid #f5f5f9;
+  .el-form-item {
+    margin: 0;
   }
+}
+.tableContent {
+  background-color: #fff;
+  padding: 20px;
+  border-top: 20px solid #f5f5f9;
 }
 </style>

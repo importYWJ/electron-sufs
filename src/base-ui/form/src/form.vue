@@ -50,9 +50,10 @@
                   <el-option
                     v-for="option in item.options"
                     :key="option.value"
-                    :value="option.title"
+                    :value="option.value"
+                    :label="option.label"
                   >
-                    {{ option.title }}
+                    {{ option.label }}
                   </el-option>
                 </el-select>
               </template>
@@ -84,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from "vue";
+import { defineComponent, PropType } from "vue";
 import { IFormItem } from "@/base-ui/form/types";
 
 export default defineComponent({

@@ -68,7 +68,7 @@ export default defineComponent({
     const store = useStore();
     if (store.state.modelModule.modelList.length === 0) {
       store.dispatch("modelModule/loadModelListAction", {
-        pageUrl: "/model/model_manage", // 后端路由和前端路由一致
+        pageUrl: "/model/queryAll",
       });
     }
     const getModelItems = () => {
@@ -80,7 +80,6 @@ export default defineComponent({
         });
       });
     };
-    getModelItems();
     onBeforeMount(getModelItems);
 
     const formItems = basicInfoConfig?.formItems ?? [];
