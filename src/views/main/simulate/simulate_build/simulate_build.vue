@@ -12,9 +12,9 @@
         v-model="formData"
         :disable="rainfallStyle === 'rainfall' ? false : true"
       />
-      <el-radio label="dynamic_rain_file"
-        >网络通用数据格式文件(.nctCDF)</el-radio
-      >
+      <el-radio label="dynamic_rain_file">
+        网络通用数据格式文件(.nctCDF)
+      </el-radio>
       <wj-input
         v-bind="dynamic_rain_fileConfig"
         v-model="formData"

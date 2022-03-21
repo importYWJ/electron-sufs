@@ -23,7 +23,6 @@ export const basicInfoConfig: IForm = {
     },
   ],
   labelWidth: "80px",
-  // labelPosition: "left",
   itemStyle: {
     padding: "5px 0px 5px 10px",
   },

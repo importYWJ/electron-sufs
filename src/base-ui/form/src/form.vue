@@ -58,20 +58,18 @@
                 </el-select>
               </template>
               <template v-else-if="item.type === 'datepicker'">
-                <el-date-picker
-                  v-bind="item.dateOptions"
-                  style="width: 100%"
-                  :model-value="modelValue[`${item.field}`]"
+                <date-time-picker
+                  :type="item.type"
+                  :options="item.dateOptions"
                   @change="handleValueChange($event, item.field)"
-                ></el-date-picker>
+                ></date-time-picker>
               </template>
               <template v-else-if="item.type === 'timepicker'">
-                <el-time-picker
-                  v-bind="item.timeOptions"
-                  style="width: 100%"
-                  :model-value="modelValue[`${item.field}`]"
+                <date-time-picker
+                  :type="item.type"
+                  :options="item.dateOptions"
                   @change="handleValueChange($event, item.field)"
-                ></el-time-picker>
+                ></date-time-picker>
               </template>
             </el-form-item>
           </el-col>
@@ -87,8 +85,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { IFormItem } from "@/base-ui/form/types";
+import DateTimePicker from "./date_time_picker.vue";
 
 export default defineComponent({
+  components: { DateTimePicker },
   props: {
     modelValue: {
       type: Object,
@@ -128,6 +128,7 @@ export default defineComponent({
   emits: ["update:modelValue"],
   setup(props, { emit }) {
     const handleValueChange = (value: any, field: string) => {
+      console.log(value, field);
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
     return { handleValueChange };
@@ -136,7 +137,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-// .wj-form {
-//   padding-top: 18px;
-// }
+.date-time-picker {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+}
 </style>
