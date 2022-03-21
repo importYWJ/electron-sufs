@@ -2,6 +2,7 @@ import { Module } from "vuex";
 import { IModelState, IModelItem } from "./types";
 import { IRootState } from "@/store/types";
 import { getTableList, postModelConfig } from "@/service/main/models/models";
+import axios from "axios";
 
 const modelModule: Module<IModelState, IRootState> = {
   namespaced: true,

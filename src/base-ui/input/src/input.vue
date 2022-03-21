@@ -111,7 +111,7 @@ export default defineComponent({
       if (files !== null) {
         emit("update:modelValue", {
           ...props.modelValue,
-          [field]: { file: files[0], path: files[0].path },
+          [field]: { file: files[0], path: files[0].path, name: field },
         });
       }
     };

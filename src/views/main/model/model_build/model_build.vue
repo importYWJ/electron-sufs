@@ -63,6 +63,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useStore } from "@/store";
+import axios from "axios";
 import {
   basicInfoConfig,
   modelTypeConfig,
@@ -87,19 +88,25 @@ export default defineComponent({
       formOriginData[item.field] = "";
     }
     const formData = ref(formOriginData);
-
     // radio设置
     const infiltrateStyle = ref("file");
     const evaporateStyle = ref("file");
 
     const store = useStore();
     const handleBuildModel = () => {
-      // dispatch, 提交数值
+      const parList = new FormData();
+      for (const item in formData.value) {
+        if (typeof formData.value[item] === "object") {
+          parList.append(formData.value[item].name, formData.value[item].file);
+        } else if (typeof formData.value[item] === "string") {
+          parList.append(item, formData.value[item]);
+        }
+      }
+
       store.dispatch("modelModule/modelConfigAction", {
         pageUrl: "/model/model_build",
-        modelData: formData.value,
+        modelData: parList,
       });
-      // 收集file, append入formdata, 提交文件
     };
     return {
       basicInfoConfig,
