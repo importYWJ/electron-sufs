@@ -126,19 +126,7 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
-    // const formData = ref({ ...props.modelValue });
-    // watch(
-    //   formData,
-    //   (newValue) => {
-    //     emit("update:modelValue", newValue);
-    //   },
-    //   {
-    //     deep: true,
-    //   }
-    // );
     const handleValueChange = (value: any, field: string) => {
-      console.log("form控件调用事件");
-
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
     return { handleValueChange };

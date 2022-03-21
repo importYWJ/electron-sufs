@@ -183,7 +183,6 @@ export default defineComponent({
       view.ui.add(sketch, "top-right");
       // Add sketch events to listen for and execute query
       sketch.on("update", (event) => {
-        console.log("监听sketch组件");
         // 新建
         if (event.state === "start") {
           queryFeatureLayer(event.graphics[0].geometry);

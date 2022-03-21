@@ -95,6 +95,8 @@ export default defineComponent({
     const store = useStore();
     const handleBuildModel = () => {
       const parList = new FormData();
+      const now_timestamp = Math.round(new Date().getTime() / 1000);
+      parList.append("modelID", now_timestamp.toString());
       for (const item in formData.value) {
         if (typeof formData.value[item] === "object") {
           parList.append(formData.value[item].name, formData.value[item].file);

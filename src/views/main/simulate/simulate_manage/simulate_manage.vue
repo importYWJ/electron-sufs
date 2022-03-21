@@ -80,7 +80,7 @@ export default defineComponent({
     });
     watch(pageInfo, () => getPageData());
     const getPageData = (queryInfo: any = {}) => {
-      console.log(typeof pageInfo.value.modelID);
+      console.log(pageInfo.value.modelID);
       store.dispatch("modelModule/loadSimulateListAction", {
         pageUrl: "/simulate/simulate_manage",
         // pageUrl: "/model/model_manage",
