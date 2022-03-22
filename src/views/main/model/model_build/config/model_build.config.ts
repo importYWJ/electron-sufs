@@ -1,6 +1,5 @@
 import { IForm } from "@/base-ui/form";
 import { IInput } from "@/base-ui/input";
-// import { Bottom } from "@element-plus/icons-vue/dist/types";
 
 export const basicInfoConfig: IForm = {
   formItems: [
@@ -10,8 +9,12 @@ export const basicInfoConfig: IForm = {
       label: "模型名称",
       placeholder: "请输入模型名称...",
       rules: [
-        { required: true, message: "age is required" },
-        { type: "number", message: "age must be a number" },
+        {
+          required: true,
+          message: "模型名称为必输项！",
+          trigger: "blur",
+        },
+        { min: 3, max: 15, message: "长度在3到15个字符", trigger: "blur" },
       ],
     },
     {
@@ -19,6 +22,7 @@ export const basicInfoConfig: IForm = {
       field: "area",
       label: "模拟区域",
       placeholder: "请输入模型区域...",
+      rules: [{ min: 2, message: "长度必须大于2个字符", trigger: "blur" }],
     },
     {
       type: "input",
@@ -46,6 +50,13 @@ export const modelTypeConfig: IForm = {
     {
       type: "radio",
       field: "type",
+      rules: [
+        {
+          required: true,
+          message: "必须选择一种模拟方式！",
+          trigger: "blur",
+        },
+      ],
       options: [
         {
           radioLabel: "一维二维耦合洪涝模拟",
@@ -85,8 +96,7 @@ export const DEMfileConfig: IInput = {
       ],
       hasButton: true,
       btnName: "打开文件",
-      // accept: ".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF",
-      accept: "image/*,",
+      accept: ".asc",
     },
   ],
   itemStyle: {
@@ -101,18 +111,21 @@ export const riverfileConfig: IInput = {
       placeholder: "请输入河流宽度文件...",
       hasButton: true,
       btnName: "打开河流宽度文件",
+      accept: ".asc",
     },
     {
       field: "riverheight",
       placeholder: "请输入河床高度文件...",
       hasButton: true,
       btnName: "打开河床高度文件",
+      accept: ".asc",
     },
     {
       field: "riverelevation",
       placeholder: "请输入河岸高程文件...",
       hasButton: true,
       btnName: "打开河岸高程文件",
+      accept: ".asc",
     },
   ],
   itemStyle: {
@@ -127,6 +140,7 @@ export const infiltration_fileConfig: IInput = {
       placeholder: "请打开下渗率文件...",
       hasButton: true,
       btnName: "打开文件",
+      accept: ".asc",
     },
   ],
   itemStyle: {
@@ -179,6 +193,7 @@ export const monitorConfig: IInput = {
       placeholder: "请输入地面监测点文件...",
       hasButton: true,
       btnName: "打开文件",
+      accept: ".stage",
     },
   ],
   itemStyle: {

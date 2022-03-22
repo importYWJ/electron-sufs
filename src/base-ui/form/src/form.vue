@@ -7,6 +7,7 @@
       :label-width="labelWidth"
       :label-position="labelPosition"
       :disabled="disable"
+      :model="modelValue"
     >
       <el-row>
         <template v-for="item in formItems" :key="item.label">

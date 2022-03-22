@@ -1,5 +1,9 @@
 <template>
-  <el-form :label-width="labelWidth" :label-position="labelPosition">
+  <el-form
+    :label-width="labelWidth"
+    :label-position="labelPosition"
+    :model="modelValue"
+  >
     <el-row>
       <template v-for="item in inputItems" :key="item.field">
         <el-col>
@@ -17,12 +21,13 @@
                   :disabled="disable"
                 >
                 </el-input>
-                <el-button class="upload" type="primary">
+                <el-button class="upload" type="primary" :disabled="disable">
                   {{ item.btnName }}
                   <input
                     type="file"
                     :accept="item.accept"
                     @change="handleFileChange($event.target.files, item.field)"
+                    :disabled="disable"
                   />
                 </el-button>
               </template>
@@ -90,18 +95,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    // action: {
-    //   type: String,
-    //   required: true,
-    // },
-    // fileList: {
-    //   type: Array as PropType<any[]>,
-    //   default: () => [],
-    // },
-    // accept: {
-    //   type: String,
-    //   deafult: "",
-    // },
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {

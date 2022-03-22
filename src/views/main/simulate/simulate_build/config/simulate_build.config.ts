@@ -9,6 +9,13 @@ export const basicInfoConfig: IForm = {
       label: "模型名称",
       placeholder: "请选择模型名称...",
       options: [],
+      rules: [
+        {
+          required: true,
+          message: "模型为必选项！",
+          trigger: "blur",
+        },
+      ],
     },
     {
       type: "select",
@@ -19,6 +26,13 @@ export const basicInfoConfig: IForm = {
         { value: "acceleration", label: "acceleration" },
         { value: "flow limited", label: "flow limited" },
         { value: "adaptive", label: "adaptive" },
+      ],
+      rules: [
+        {
+          required: true,
+          message: "计算模式为必选项！",
+          trigger: "blur",
+        },
       ],
     },
   ],
@@ -42,6 +56,7 @@ export const rainfallConfig: IInput = {
       placeholder: "请打开时序降雨文件...",
       hasButton: true,
       btnName: "打开文件",
+      accept: ".rain",
     },
   ],
   itemStyle: {
@@ -56,6 +71,7 @@ export const dynamic_rain_fileConfig: IInput = {
       placeholder: "请打开netCDF格式降雨文件...",
       hasButton: true,
       btnName: "打开文件",
+      accept: ".nc",
     },
   ],
   itemStyle: {
@@ -129,6 +145,13 @@ export const otherInfoConfig: IInput = {
       placeholder: "请输入模拟时间步长...",
       hasAppend: true,
       appendValue: " 秒(s) ",
+      rules: [
+        {
+          required: true,
+          message: "模拟时间步长为必输项！",
+          trigger: "blur",
+        },
+      ],
     },
     {
       field: "saveint",
@@ -136,6 +159,13 @@ export const otherInfoConfig: IInput = {
       placeholder: "结果输出时间步长...",
       hasAppend: true,
       appendValue: " 分钟(min) ",
+      rules: [
+        {
+          required: true,
+          message: "结果输出时间步长为必输项！",
+          trigger: "blur",
+        },
+      ],
     },
     {
       field: "massint",
@@ -143,6 +173,13 @@ export const otherInfoConfig: IInput = {
       placeholder: "请输入降雨模拟总时长...",
       hasAppend: true,
       appendValue: " 秒(s) ",
+      rules: [
+        {
+          required: true,
+          message: "水体质量平衡检查时间为必输项！",
+          trigger: "blur",
+        },
+      ],
     },
     {
       field: "cfl",
@@ -150,6 +187,13 @@ export const otherInfoConfig: IInput = {
       placeholder: "动力计算时间步长安全系数...",
       hasAppend: true,
       appendValue: " 秒(s) ",
+      rules: [
+        {
+          required: true,
+          message: "水动力计算时间步长安全系数为必输项！",
+          trigger: "blur",
+        },
+      ],
     },
   ],
   itemStyle: {
