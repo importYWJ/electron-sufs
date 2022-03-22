@@ -66,6 +66,14 @@ const modelModule: Module<IModelState, IRootState> = {
       const result = await queryModelConfig(payload.pageUrl, payload.modelID);
       console.log(result);
     },
+    // 模拟构建表单提交
+    async simulateConfigAction({ commit }, payload: any) {
+      const response = await addModelConfig(
+        payload.pageUrl,
+        payload.simulateData
+      );
+      console.log(response);
+    },
   },
 };
 

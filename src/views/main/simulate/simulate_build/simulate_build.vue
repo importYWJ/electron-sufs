@@ -40,7 +40,7 @@
     <div class="split">模拟参数</div>
     <wj-input v-bind="otherInfoConfig" v-model="formData" />
     <div class="save_config">
-      <el-button type="primary">保存配置</el-button>
+      <el-button type="primary" @click="handleSaveConfig">保存配置</el-button>
     </div>
   </div>
 </template>
@@ -94,6 +94,27 @@ export default defineComponent({
     const formData = ref(formOriginData);
     const rainfallStyle = ref("rainfall");
     const simTimeStyle = ref("totalTime");
+    const handleSaveConfig = () => {
+      const parList = new FormData();
+      const now_timestamp = Math.round(new Date().getTime() / 1000);
+      // 时间戳作为simulateID
+      parList.append("simulateID", now_timestamp.toString());
+      for (const item in formData.value) {
+        if (formData.value[item] instanceof Date) {
+          parList.append(item, formData.value[item]);
+        } else if (typeof formData.value[item] === "object") {
+          parList.append(formData.value[item].name, formData.value[item].file);
+        } else if (typeof formData.value[item] === "string") {
+          parList.append(item, formData.value[item]);
+        }
+      }
+      console.log(parList);
+
+      store.dispatch("modelModule/simulateConfigAction", {
+        pageUrl: "/simulate/simulate_build",
+        simulateData: parList,
+      });
+    };
     return {
       basicInfoConfig,
       rainfallConfig,
@@ -104,6 +125,7 @@ export default defineComponent({
       formData,
       rainfallStyle,
       simTimeStyle,
+      handleSaveConfig,
     };
   },
 });
@@ -112,13 +134,9 @@ export default defineComponent({
 <style scoped lang="less">
 .simulate_build {
   background-color: #fff;
-  // height: 100%;
   padding: 20px;
   .wj-form {
     padding-top: 18px;
-    // width: 100%;
-    // display: flex;
-    // justify-content: stretch;
   }
   .split {
     height: 35px;

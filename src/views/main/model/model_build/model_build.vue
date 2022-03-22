@@ -95,6 +95,7 @@ export default defineComponent({
     const handleBuildModel = () => {
       const parList = new FormData();
       const now_timestamp = Math.round(new Date().getTime() / 1000);
+      // 时间戳作为modelID
       parList.append("modelID", now_timestamp.toString());
       for (const item in formData.value) {
         if (typeof formData.value[item] === "object") {
@@ -103,7 +104,6 @@ export default defineComponent({
           parList.append(item, formData.value[item]);
         }
       }
-
       store.dispatch("modelModule/modelConfigAction", {
         pageUrl: "/model/model_build",
         modelData: parList,

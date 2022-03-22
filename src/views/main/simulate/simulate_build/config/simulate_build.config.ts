@@ -5,7 +5,7 @@ export const basicInfoConfig: IForm = {
   formItems: [
     {
       type: "select",
-      field: "modelName",
+      field: "modelID",
       label: "模型名称",
       placeholder: "请选择模型名称...",
       options: [],
