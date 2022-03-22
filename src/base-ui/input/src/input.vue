@@ -5,6 +5,7 @@
         <el-col>
           <el-form-item
             :label="item.label"
+            :prop="item.field"
             :rules="item.rules"
             :style="itemStyle"
           >

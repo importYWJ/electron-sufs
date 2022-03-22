@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onBeforeMount } from "vue";
+import { defineComponent, ref, reactive, watch, nextTick } from "vue";
 import WjForm from "@/base-ui/form";
 import WjInput from "@/base-ui/input";
 import {
@@ -66,22 +66,26 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    if (store.state.modelModule.modelList.length === 0) {
-      store.dispatch("modelModule/loadModelListAction", {
-        pageUrl: "/model/queryAll",
-      });
-    }
     const getModelItems = () => {
       basicInfoConfig.formItems[0].options = [];
       store.state.modelModule.modelList.forEach((item) => {
         basicInfoConfig.formItems[0].options?.push({
           value: item.scid,
-          title: item.sceneryname,
+          label: item.sceneryname,
         });
       });
     };
-    onBeforeMount(getModelItems);
-
+    if (store.state.modelModule.modelList.length === 0) {
+      store
+        .dispatch("modelModule/loadModelListAction", {
+          pageUrl: "/model/queryAll",
+        })
+        .then((res) => {
+          getModelItems();
+        });
+    } else {
+      getModelItems();
+    }
     const formItems = basicInfoConfig?.formItems ?? [];
     const formOriginData: any = {};
     for (const item of formItems) {

@@ -16,9 +16,9 @@ export const basicInfoConfig: IForm = {
       label: "计算模式",
       placeholder: "请选择计算模式...",
       options: [
-        { value: "acceleration", title: "acceleration" },
-        { value: "flow limited", title: "flow limited" },
-        { value: "adaptive", title: "adaptive" },
+        { value: "acceleration", label: "acceleration" },
+        { value: "flow limited", label: "flow limited" },
+        { value: "adaptive", label: "adaptive" },
       ],
     },
   ],

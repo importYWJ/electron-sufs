@@ -13,6 +13,7 @@
           <el-col v-bind="colLayout">
             <el-form-item
               :label="item.label"
+              :prop="item.field"
               :rules="item.rules"
               :style="itemStyle"
             >

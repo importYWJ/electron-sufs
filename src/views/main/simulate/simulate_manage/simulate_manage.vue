@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed, onBeforeMount } from "vue";
+import { defineComponent, ref, watch, computed } from "vue";
 import WjForm from "@/base-ui/form";
 import WjTable from "@/base-ui/table";
 import {
@@ -58,11 +58,6 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    if (store.state.modelModule.modelList.length === 0) {
-      store.dispatch("modelModule/loadModelListAction", {
-        pageUrl: "/model/queryAll",
-      });
-    }
     const getModelItems = () => {
       basedModelConfig.formItems[0].options = [];
       store.state.modelModule.modelList.forEach((item) => {
@@ -72,7 +67,17 @@ export default defineComponent({
         });
       });
     };
-    onBeforeMount(getModelItems);
+    if (store.state.modelModule.modelList.length === 0) {
+      store
+        .dispatch("modelModule/loadModelListAction", {
+          pageUrl: "/model/queryAll",
+        })
+        .then((res) => {
+          getModelItems();
+        });
+    } else {
+      getModelItems();
+    }
     const modelInfo = ref({ modelID: "" });
 
     const pageInfo = ref({

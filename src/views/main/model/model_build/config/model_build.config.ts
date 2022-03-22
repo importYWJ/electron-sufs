@@ -9,6 +9,10 @@ export const basicInfoConfig: IForm = {
       field: "name",
       label: "模型名称",
       placeholder: "请输入模型名称...",
+      rules: [
+        { required: true, message: "age is required" },
+        { type: "number", message: "age must be a number" },
+      ],
     },
     {
       type: "input",

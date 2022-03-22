@@ -1,16 +1,5 @@
 <template>
   <div class="model-manage">
-    <!-- <div class="formContent">
-      <wj-form v-bind="formConfig" v-model="formData">
-        <template #header>
-          <h1>模型构建</h1>
-        </template>
-        <template #footer>
-          <el-button @click="handleResetClick">重置</el-button>
-          <el-button type="primary">建立模型</el-button>
-        </template>
-      </wj-form>
-    </div> -->
     <div class="tableContent">
       <wj-table
         v-bind="tableConfig"
@@ -94,6 +83,7 @@ export default defineComponent({
     const selectFoo = (value: any) => {
       console.log("选择切换: ", value);
     };
+
     return {
       formConfig,
       tableConfig,
