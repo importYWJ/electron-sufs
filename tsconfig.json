@@ -32,7 +32,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/utils/load-shp.js", "src/utils/load-shp.js"  ],
   "exclude": [
     "node_modules"
   ]

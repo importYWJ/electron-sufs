@@ -1,5 +1,6 @@
 import { ILoginState } from "./login/types";
 import { IModelState } from "./main/models/types";
+import { IPipeState } from "./main/pipes/types";
 
 export interface IRootState {
   owner: string;
@@ -9,6 +10,7 @@ export interface IRootState {
 export interface IRootWithModule {
   loginModule: ILoginState;
   modelModule: IModelState;
+  pipeModule: IPipeState;
 }
 
 export type IStoreType = IRootState & IRootWithModule;

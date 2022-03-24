@@ -17,6 +17,7 @@ export const pipeLineFileConfig: IInput = {
       ],
       hasButton: true,
       btnName: "导入数据",
+      accept: ".shp, .dbf, .sbn, .sbx, .shx, .prj",
     },
   ],
   itemStyle: {
@@ -29,7 +30,7 @@ export const pipelineTableConfig: ITable = {
   showSelectColumn: false,
   propList: [
     { prop: "origin", label: "原始字段", minWidth: "180" },
-    { prop: "match", label: "匹配字段", minWidth: "180" },
+    { prop: "match", label: "匹配字段", minWidth: "180", slotName: "shpfield" },
   ],
 };
 
@@ -37,7 +38,7 @@ export const pipelineTableConfig: ITable = {
 export const pipePointFileConfig: IInput = {
   inputItems: [
     {
-      field: "pipepointFile",
+      field: "pipepointfile",
       placeholder: "请输入管点Shp文件...",
       rules: [
         {
@@ -48,6 +49,7 @@ export const pipePointFileConfig: IInput = {
       ],
       hasButton: true,
       btnName: "导入数据",
+      accept: ".shp, .dbf, .sbn, .sbx, .shx, .prj",
     },
   ],
   itemStyle: {
@@ -60,7 +62,7 @@ export const pipePointTableConfig: ITable = {
   showSelectColumn: false,
   propList: [
     { prop: "origin", label: "原始字段", minWidth: "180" },
-    { prop: "match", label: "匹配字段", minWidth: "180" },
+    { prop: "match", label: "匹配字段", minWidth: "180", slotName: "shpfield" },
   ],
 };
 
@@ -68,7 +70,7 @@ export const pipePointTableConfig: ITable = {
 export const pipeOutfallFileConfig: IInput = {
   inputItems: [
     {
-      field: "pipeOutfallFile",
+      field: "pipeoutfallfile",
       placeholder: "请输入排水口Shp文件...",
       rules: [
         {
@@ -79,6 +81,7 @@ export const pipeOutfallFileConfig: IInput = {
       ],
       hasButton: true,
       btnName: "导入数据",
+      accept: ".shp, .dbf, .sbn, .sbx, .shx, .prj",
     },
   ],
   itemStyle: {
@@ -91,7 +94,7 @@ export const pipeOutfallTableConfig: ITable = {
   showSelectColumn: false,
   propList: [
     { prop: "origin", label: "原始字段", minWidth: "180" },
-    { prop: "match", label: "匹配字段", minWidth: "180" },
+    { prop: "match", label: "匹配字段", minWidth: "180", slotName: "shpfield" },
   ],
 };
 

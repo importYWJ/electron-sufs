@@ -42,7 +42,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from "vue";
-// import WjForm from "@/base-ui/form";
 import WjTable from "@/base-ui/table";
 import { Edit, Delete } from "@element-plus/icons-vue";
 import { formConfig, tableConfig } from "./config/model_manage.config";
@@ -50,7 +49,6 @@ import { useStore } from "@/store";
 
 export default defineComponent({
   components: {
-    // WjForm,
     WjTable,
   },
   setup() {
