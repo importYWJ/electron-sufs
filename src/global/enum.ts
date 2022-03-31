@@ -1,3 +1,49 @@
+export enum ParModelParams {
+  name = "name",
+  area = "area",
+  description = "description",
+  type = "type",
+  DEMfile = "DEMfile", // DEM文件的路径
+  riverwidth = "riverwidth",
+  riverheight = "riverheight",
+  riverelevation = "riverelevation",
+  infiltration = "infiltration", // 模拟区域范围内统一的下渗速度，单位 m/s
+  evaporation = "evaporation", // 时序蒸发速度信息文件路径
+  stagefile = "stagefile", // 监测点文件路径
+  inp_file = "inp_file", // SWMM5工程文件路径(耦合功能)
+  /** 以下参数为默认/不暴露
+  dirroot = "dirroot", // 结果输出目录的路径
+  resroot = "resroot", // 结果文件名的前缀
+  uniform_rules = "uniform_rules", // 耦合计算使用的排涝和溢流量规则的信息文件。
+  swmm_output = "swmm_output", // 保存SWMM5的计算结果*.out和*.rpt文件
+  threads = "threads", // OpenMP并行计算时使用的线程数(默认使用机器最大线程数)
+  qoutput = "qoutput", // 输出流量结果
+  voutput = "voutput", // 输出流速结果
+  g = "g", // 重力加速度
+  elevoff = "elevoff", // 不输出水位结果
+  adaptoff = "adaptoff", // 固定步长
+   */
+}
+
+export enum ParSimulateParams {
+  modelID = "modelID",
+  mode = "mode", // 模型计算模式
+  rainfall = "rainfall", // 时序降雨输入文件路径
+  dynamic_rain_file = "dynamic_rain_file", // NetCDF 格式的降雨输入文件路径
+  sim_time = "sim_time", // 模拟内涝事件的总时间
+  start_date = "start_date", // 模拟时间开始日期
+  start_time = "start_time", // 模拟时间开始时刻
+  end_date = "end_date", // 模拟时间结束日期
+  end_time = "end_time", // 模拟时间结束时刻
+  initial_tstep = "initial_tstep", // 初始时间步长，单位s，默认为10.0
+  saveint = "saveint", // 保存一次水深、流速、流量等结果的时间间隔，单位s
+  massint = "massint", // 水体质量平衡检查的时间间隔，单位 s
+  cfl = "cfl", // 水动力计算时间步长安全系数(默认0.7)
+  fpfric = "fpfric", // 模拟区域范围内统一的曼宁糙率，无量纲
+  manningfile = "manningfile", // 曼宁糙率数据文件路径(优先级高于fpfric)
+  depththresh = "depththresh", // 开始进行水动力计算的水位差阈值，单位 m，默认值为 0.1
+}
+
 export enum InpJunction {
   Name = "Name",
   Description = "Description",

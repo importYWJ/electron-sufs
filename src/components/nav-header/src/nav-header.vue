@@ -11,9 +11,15 @@
     <div class="content">
       <wj-breadcrumb :breadcrumbs="breadcrumbs"></wj-breadcrumb>
       <!-- <div id="title">城市洪涝时空建模与模拟系统</div> -->
-      <div class="right">用户信息</div>
+      <div class="right">
+        <el-button :icon="Search" @click="drawer = !drawer" circle />
+      </div>
     </div>
   </div>
+  <el-drawer v-model="drawer" title="I am the title" :with-header="false">
+    <span>运行日志</span>
+    <el-progress :percentage="50" />
+  </el-drawer>
 </template>
 
 <script lang="ts">
@@ -23,6 +29,7 @@ import WjBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb";
 import { pathMapBreadcrumbs } from "@/utils/map-menus";
 import { useStore } from "@/store";
 import { useRoute } from "vue-router";
+import { Search } from "@element-plus/icons-vue";
 
 export default defineComponent({
   components: {
@@ -44,7 +51,11 @@ export default defineComponent({
       const route = useRoute();
       return pathMapBreadcrumbs(userMenus, route.path);
     });
-    return { isFold, handleFoldClick, breadcrumbs };
+    // const btnClick = () => {
+    //   console.log("测试");
+    // };
+    const drawer = ref(false);
+    return { isFold, handleFoldClick, breadcrumbs, Search, drawer };
   },
 });
 </script>

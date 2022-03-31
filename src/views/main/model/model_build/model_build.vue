@@ -77,14 +77,14 @@ import {
 } from "./config/model_build.config";
 import WjForm from "@/base-ui/form";
 import WjInput from "@/base-ui/input";
+import { ParModelParams } from "@/global/enum";
 
 export default defineComponent({
   components: { WjForm, WjInput },
   setup() {
-    const formItems = basicInfoConfig?.formItems ?? [];
     const formOriginData: any = {};
-    for (const item of formItems) {
-      formOriginData[item.field] = "";
+    for (const item in ParModelParams) {
+      formOriginData[item] = "";
     }
     const formData = ref(formOriginData);
     // radio设置

@@ -79,6 +79,33 @@ export const dynamic_rain_fileConfig: IInput = {
   },
 };
 
+export const manning_fileConfig: IInput = {
+  inputItems: [
+    {
+      field: "manningfile",
+      placeholder: "请打开曼宁系数文件...",
+      hasButton: true,
+      btnName: "打开文件",
+      accept: ".asc",
+    },
+  ],
+  itemStyle: {
+    margin: "10px 0",
+  },
+};
+
+export const manning_uniformConfig: IInput = {
+  inputItems: [
+    {
+      field: "fpfric",
+      placeholder: "请输入统一的曼宁系数...",
+    },
+  ],
+  itemStyle: {
+    margin: "10px 0",
+  },
+};
+
 export const totalTimeConfig: IInput = {
   inputItems: [
     {
@@ -182,6 +209,13 @@ export const otherInfoConfig: IInput = {
       ],
     },
     {
+      field: "depththresh",
+      label: "水动力计算水位差阈值：",
+      placeholder: "水动力计算的水位差阈值...",
+      hasAppend: true,
+      appendValue: " 米(m) ",
+    },
+    {
       field: "cfl",
       label: "水动力计算时间步长安全系数：",
       placeholder: "动力计算时间步长安全系数...",
@@ -199,6 +233,6 @@ export const otherInfoConfig: IInput = {
   itemStyle: {
     margin: "10px 0 10px 20px",
   },
-  labelWidth: "210px",
+  labelWidth: "220px",
   labelPosition: "left",
 };

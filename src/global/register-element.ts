@@ -34,6 +34,8 @@ import {
   ElTabs,
   ElTabPane,
   ElUpload,
+  ElDrawer,
+  ElProgress,
 } from "element-plus";
 
 const components = [
@@ -68,6 +70,8 @@ const components = [
   ElTabs,
   ElTabPane,
   ElUpload,
+  ElDrawer,
+  ElProgress,
 ];
 
 export default function (app: App): void {

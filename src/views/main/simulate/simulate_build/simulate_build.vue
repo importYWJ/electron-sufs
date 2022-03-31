@@ -21,6 +21,22 @@
         :disable="rainfallStyle === 'dynamic_rain_file' ? false : true"
       />
     </el-radio-group>
+    <el-radio-group v-model="manningStyle">
+      <!-- 曼宁系数 -->
+      <div class="split">曼宁系数配置</div>
+      <el-radio label="fpfric"> 统一曼宁系数 </el-radio>
+      <wj-input
+        v-bind="manning_uniformConfig"
+        v-model="formData"
+        :disable="manningStyle === 'fpfric' ? false : true"
+      />
+      <el-radio label="manningfile"> 曼宁系数文件 </el-radio>
+      <wj-input
+        v-bind="manning_fileConfig"
+        v-model="formData"
+        :disable="manningStyle === 'manningfile' ? false : true"
+      />
+    </el-radio-group>
     <!-- 模拟时间 -->
     <div class="split">模拟时间</div>
     <el-radio-group v-model="simTimeStyle">
@@ -53,11 +69,14 @@ import {
   basicInfoConfig,
   rainfallConfig,
   dynamic_rain_fileConfig,
+  manning_fileConfig,
+  manning_uniformConfig,
   totalTimeConfig,
   detailTimeConfig,
   otherInfoConfig,
 } from "./config/simulate_build.config";
 import { useStore } from "@/store";
+import { ParSimulateParams } from "@/global/enum";
 
 export default defineComponent({
   components: {
@@ -86,13 +105,13 @@ export default defineComponent({
     } else {
       getModelItems();
     }
-    const formItems = basicInfoConfig?.formItems ?? [];
     const formOriginData: any = {};
-    for (const item of formItems) {
-      formOriginData[item.field] = "";
+    for (const item in ParSimulateParams) {
+      formOriginData[item] = "";
     }
     const formData = ref(formOriginData);
     const rainfallStyle = ref("rainfall");
+    const manningStyle = ref("fpfric");
     const simTimeStyle = ref("totalTime");
     const handleSaveConfig = () => {
       const parList = new FormData();
@@ -108,8 +127,6 @@ export default defineComponent({
           parList.append(item, formData.value[item]);
         }
       }
-      console.log(parList);
-
       store.dispatch("modelModule/simulateConfigAction", {
         pageUrl: "/simulate/simulate_build",
         simulateData: parList,
@@ -119,11 +136,14 @@ export default defineComponent({
       basicInfoConfig,
       rainfallConfig,
       dynamic_rain_fileConfig,
+      manning_fileConfig,
+      manning_uniformConfig,
       totalTimeConfig,
       detailTimeConfig,
       otherInfoConfig,
       formData,
       rainfallStyle,
+      manningStyle,
       simTimeStyle,
       handleSaveConfig,
     };

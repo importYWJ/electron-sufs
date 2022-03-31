@@ -28,8 +28,8 @@
               :icon="Delete"
               @click="handleDeleteClick(scope.row)"
             >
-              删除</el-button
-            >
+              删除
+            </el-button>
           </div>
         </template>
         <template #headerHandler>
