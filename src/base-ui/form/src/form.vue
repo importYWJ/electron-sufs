@@ -144,4 +144,7 @@ export default defineComponent({
   width: 100%;
   flex-grow: 1;
 }
+.el-form-item > div > div {
+  width: 100%; // 解决详细时间不占据全部宽度的问题
+}
 </style>
