@@ -38,12 +38,16 @@
       </wj-table>
     </div>
   </div>
+  <el-dialog v-model="dialogVisible" title="情景修改" width="30%" draggable>
+    <simulate-build></simulate-build>
+  </el-dialog>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from "vue";
 import WjForm from "@/base-ui/form";
 import WjTable from "@/base-ui/table";
+import SimulateBuild from "@/components/simulate-build";
 import {
   basedModelConfig,
   simulateTableConfig,
@@ -55,6 +59,7 @@ export default defineComponent({
   components: {
     WjForm,
     WjTable,
+    SimulateBuild,
   },
   setup() {
     const store = useStore();
@@ -104,13 +109,16 @@ export default defineComponent({
     const simulateDataCount = computed(
       () => store.state.modelModule.simulateCount
     );
-
+    const dialogVisible = ref(false);
     const handleEditClick = (item: any) => {
-      console.log("编辑:", item);
-      store.dispatch("modelModule/modelQueryAction", {
-        pageUrl: "/simulate/query",
-        modelID: item.sid,
-      });
+      // 1. 根据item请求OriginData格式的数据
+      // store.dispatch("modelModule/modelQueryAction", {
+      //   pageUrl: "/simulate/query",
+      //   modelID: item.sid,
+      // });
+      // 2. 请求值填充(文件项需要路径)
+      // 3. 设置dialogVisible为true
+      dialogVisible.value = true;
     };
 
     const handleDeleteClick = (item: any) => {
@@ -127,6 +135,7 @@ export default defineComponent({
       modelInfo,
       pageInfo,
       simulateDataCount,
+      dialogVisible,
       handleEditClick,
       handleDeleteClick,
       Edit,

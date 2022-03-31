@@ -38,11 +38,15 @@
       </wj-table>
     </div>
   </div>
+  <el-dialog v-model="dialogVisible" title="模型修改" width="30%" draggable>
+    <model-build></model-build>
+  </el-dialog>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from "vue";
 import WjTable from "@/base-ui/table";
+import ModelBuild from "@/components/model-build";
 import { Edit, Delete } from "@element-plus/icons-vue";
 import { formConfig, tableConfig } from "./config/model_manage.config";
 import { useStore } from "@/store";
@@ -50,6 +54,7 @@ import { useStore } from "@/store";
 export default defineComponent({
   components: {
     WjTable,
+    ModelBuild,
   },
   setup() {
     const store = useStore();
@@ -83,12 +88,16 @@ export default defineComponent({
       console.log("查询按钮点击事件~");
     };
 
+    const dialogVisible = ref(false);
     const handleEditClick = (item: any) => {
-      console.log("编辑:", item.scid);
-      store.dispatch("modelModule/modelQueryAction", {
-        pageUrl: "/model/query",
-        modelID: item.scid,
-      });
+      // 1. 根据item请求OriginData格式的数据
+      // store.dispatch("modelModule/modelQueryAction", {
+      //   pageUrl: "/model/query",
+      //   modelID: item.scid,
+      // });
+      // 2. 请求值填充(文件项需要路径)
+      // 3. 设置dialogVisible为true
+      dialogVisible.value = true;
     };
 
     const handleDeleteClick = (item: any) => {
@@ -113,6 +122,7 @@ export default defineComponent({
       Delete,
       handleResetClick,
       handleSearchClick,
+      dialogVisible,
       handleEditClick,
       handleDeleteClick,
       selectFoo,
