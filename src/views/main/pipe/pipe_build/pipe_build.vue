@@ -172,7 +172,7 @@ export default defineComponent({
       formData.value?.pipepointfile?.file.forEach((item: File) => {
         shpData.append("files", item);
       });
-      store.dispatch("pipeModule/getPipeFieldsAction", {
+      store.dispatch("pipeModule/loadPipeFieldsAction", {
         pageUrl: "pipe/fields",
         shpData: shpData,
         pipeType: "Junction",

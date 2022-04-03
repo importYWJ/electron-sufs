@@ -116,7 +116,6 @@ export default defineComponent({
       } else if (files?.length > 1) {
         emit("update:modelValue", {
           ...props.modelValue,
-          // 加载shp时指定为path路径
           [field]: {
             file: [...files],
             path: Array.from(files, (item: any) => {
