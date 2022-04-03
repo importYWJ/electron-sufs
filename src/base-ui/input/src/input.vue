@@ -121,7 +121,7 @@ export default defineComponent({
             file: [...files],
             path: Array.from(files, (item: any) => {
               return item?.path;
-            })[4],
+            }).find((item) => item.endsWith("shp")),
             name: field,
           },
         });
