@@ -130,9 +130,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.model_build {
-  background-color: #f5f5f9;
-}
 .split {
   height: 35px;
   display: flex;

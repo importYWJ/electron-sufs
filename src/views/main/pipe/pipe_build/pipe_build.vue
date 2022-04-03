@@ -154,6 +154,7 @@ export default defineComponent({
       conduitID.value = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
       shpData.append("pipeID", conduitID.value.toString());
+      shpData.append("pipeType", "conduit");
       formData.value?.pipelinefile?.file.forEach((item: File) => {
         shpData.append("files", item);
       });
@@ -167,6 +168,7 @@ export default defineComponent({
       junctionID.value = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
       shpData.append("pipeID", junctionID.value.toString());
+      shpData.append("pipeType", "junction");
       formData.value?.pipepointfile?.file.forEach((item: File) => {
         shpData.append("files", item);
       });
@@ -180,6 +182,7 @@ export default defineComponent({
       outfallID.value = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
       shpData.append("pipeID", outfallID.value.toString());
+      shpData.append("pipeType", "outfall");
       formData.value?.pipeoutfallfile?.file.forEach((item: File) => {
         shpData.append("files", item);
       });
