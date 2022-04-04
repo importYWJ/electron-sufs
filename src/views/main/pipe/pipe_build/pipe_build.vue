@@ -156,7 +156,8 @@ export default defineComponent({
       shpData.append("pipeID", conduitID.value.toString());
       shpData.append("pipeType", "conduit");
       formData.value?.pipelinefile?.file.forEach((item: File) => {
-        shpData.append("files", item);
+        console.log(item);
+        shpData.append(item.name.split(".")[1], item);
       });
       store.dispatch("pipeModule/loadPipeFieldsAction", {
         pageUrl: "pipe/fields",
@@ -170,7 +171,7 @@ export default defineComponent({
       shpData.append("pipeID", junctionID.value.toString());
       shpData.append("pipeType", "junction");
       formData.value?.pipepointfile?.file.forEach((item: File) => {
-        shpData.append("files", item);
+        shpData.append(item.name.split(".")[1], item);
       });
       store.dispatch("pipeModule/loadPipeFieldsAction", {
         pageUrl: "pipe/fields",
@@ -184,7 +185,7 @@ export default defineComponent({
       shpData.append("pipeID", outfallID.value.toString());
       shpData.append("pipeType", "outfall");
       formData.value?.pipeoutfallfile?.file.forEach((item: File) => {
-        shpData.append("files", item);
+        shpData.append(item.name.split(".")[1], item);
       });
       store.dispatch("pipeModule/loadPipeFieldsAction", {
         pageUrl: "pipe/fields",
