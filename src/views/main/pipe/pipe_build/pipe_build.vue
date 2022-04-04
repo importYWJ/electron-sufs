@@ -11,7 +11,7 @@
         <div class="split">字段匹配</div>
         <wj-table v-bind="pipelineTableConfig" :tableData="ConduitTable">
           <template #shpfield="scope">
-            <el-select v-model="scope.row.match">
+            <el-select v-model="formData.ConduitMatch[scope.row.origin]">
               <el-option
                 v-for="item in conduitFields"
                 :key="item"
@@ -33,7 +33,7 @@
         <div class="split">字段匹配</div>
         <wj-table v-bind="pipePointTableConfig" :tableData="JunctionTable">
           <template #shpfield="scope">
-            <el-select v-model="scope.row.match">
+            <el-select v-model="formData.JunctionMatch[scope.row.origin]">
               <el-option
                 v-for="item in junctionFields"
                 :key="item"
@@ -55,7 +55,7 @@
         <div class="split">字段匹配</div>
         <wj-table v-bind="pipeOutfallTableConfig" :tableData="OutfallTable">
           <template #shpfield="scope">
-            <el-select v-model="scope.row.match">
+            <el-select v-model="formData.OutfallMatch[scope.row.origin]">
               <el-option
                 v-for="item in outfallFields"
                 :key="item"
@@ -79,7 +79,10 @@
       </el-tab-pane>
     </el-tabs>
     <div class="split split-add">管网模型名称</div>
-    <wj-input v-bind="pipeModelBtnConfig" v-model="formData" />
+    <div class="build">
+      <wj-input v-bind="pipeModelBtnConfig" v-model="formData" />
+      <el-button type="primary" @click="handleBuildInp">建立模型</el-button>
+    </div>
   </div>
 </template>
 
@@ -96,13 +99,14 @@ import {
   pipeFlowTypeConfig,
   pipeMinSlopeConfig,
   pipeStepRegulationConfig,
-  pipeModelBtnConfig,
+  pipeModelNameConfig,
 } from "./config/pipe_build.config";
 import WjInput from "@/base-ui/input";
 import WjTable from "@/base-ui/table";
 import WjForm from "@/base-ui/form";
 import { InpConduit, InpJunction, InpOutfall } from "@/global";
 import { useStore } from "@/store";
+import { InpBuildParams } from "@/global/enum";
 
 export default defineComponent({
   components: {
@@ -112,33 +116,38 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    // 动态添加tableData(问题:table的data格式不好作为el-select的v-model)
+    // 双向绑定界面表单
+    const formOriginData: any = {};
+    for (const item in InpBuildParams) {
+      if (item.endsWith("Match")) {
+        formOriginData[item] = {};
+      } else {
+        formOriginData[item] = "";
+      }
+    }
+    const formData = ref(formOriginData);
+    // 动态添加tableData、定义临时的el-select绑定值
     const ConduitTable: any[] = reactive([]);
     for (const field in InpConduit) {
       ConduitTable.push({ origin: field, match: "" });
+      formData.value.ConduitMatch[field] = "";
     }
     const JunctionTable: any[] = reactive([]);
     for (const field in InpJunction) {
       JunctionTable.push({ origin: field, match: "" });
+      formData.value.JunctionMatch[field] = "";
     }
     const OutfallTable: any[] = reactive([]);
     for (const field in InpOutfall) {
       OutfallTable.push({ origin: field, match: "" });
+      formData.value.OutfallMatch[field] = "";
     }
-    // 双向绑定界面表单
-    const formItems = pipeLineFileConfig?.inputItems ?? [];
-    const formOriginData: any = {};
-    for (const item of formItems) {
-      formOriginData[item.field] = "";
-    }
-    const formData = ref(formOriginData);
+
     // 通过监听文件路径变化, 发送ID和文件
     const conduitPath = computed(() => formData.value?.pipelinefile?.path);
     const junctionPath = computed(() => formData.value?.pipepointfile?.path);
     const outfallPath = computed(() => formData.value?.pipeoutfallfile?.path);
-    const conduitID = ref(0);
-    const junctionID = ref(0);
-    const outfallID = ref(0);
+    // 保存请求到的shp字段
     const conduitFields = computed(
       () => store.state.pipeModule.conduitFieldsList
     );
@@ -151,9 +160,9 @@ export default defineComponent({
 
     watch(conduitPath, () => {
       // 监听shp文件路径名称的改变执行post文件操作
-      conduitID.value = Math.round(new Date().getTime() / 1000);
+      formData.value.ConduitID = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
-      shpData.append("pipeID", conduitID.value.toString());
+      shpData.append("pipeID", formData.value.ConduitID.toString());
       shpData.append("pipeType", "conduit");
       formData.value?.pipelinefile?.file.forEach((item: File) => {
         console.log(item);
@@ -166,9 +175,9 @@ export default defineComponent({
       });
     });
     watch(junctionPath, () => {
-      junctionID.value = Math.round(new Date().getTime() / 1000);
+      formData.value.JunctionID = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
-      shpData.append("pipeID", junctionID.value.toString());
+      shpData.append("pipeID", formData.value.JunctionID.toString());
       shpData.append("pipeType", "junction");
       formData.value?.pipepointfile?.file.forEach((item: File) => {
         shpData.append(item.name.split(".")[1], item);
@@ -180,9 +189,9 @@ export default defineComponent({
       });
     });
     watch(outfallPath, () => {
-      outfallID.value = Math.round(new Date().getTime() / 1000);
+      formData.value.OutfallID = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
-      shpData.append("pipeID", outfallID.value.toString());
+      shpData.append("pipeID", formData.value.OutfallID.toString());
       shpData.append("pipeType", "outfall");
       formData.value?.pipeoutfallfile?.file.forEach((item: File) => {
         shpData.append(item.name.split(".")[1], item);
@@ -193,6 +202,20 @@ export default defineComponent({
         pipeType: "Outfall",
       });
     });
+    // 最终模型构建
+    const handleBuildInp = () => {
+      const inpList = new FormData();
+      const now_timestamp = Math.round(new Date().getTime() / 1000);
+      // 时间戳作为ID
+      inpList.append("inpID", now_timestamp.toString());
+      for (const item in formData.value) {
+        inpList.append(item, formData.value[item]);
+      }
+      store.dispatch("modelModule/modelConfigAction", {
+        pageUrl: "/model/model_build",
+        modelData: inpList,
+      });
+    };
     return {
       pipeLineFileConfig,
       pipelineTableConfig,
@@ -204,7 +227,7 @@ export default defineComponent({
       pipeFlowTypeConfig,
       pipeMinSlopeConfig,
       pipeStepRegulationConfig,
-      pipeModelBtnConfig,
+      pipeModelNameConfig,
       formData,
       ConduitTable,
       JunctionTable,
@@ -212,6 +235,7 @@ export default defineComponent({
       conduitFields,
       junctionFields,
       outfallFields,
+      handleBuildInp,
     };
   },
 });
@@ -238,6 +262,16 @@ export default defineComponent({
   .wj-table {
     .table-top {
       height: 18px;
+    }
+  }
+  .build {
+    display: flex;
+    .el-form {
+      width: 100%;
+    }
+    .el-button {
+      width: 150px;
+      margin-top: 10px;
     }
   }
 }

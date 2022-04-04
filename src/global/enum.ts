@@ -44,6 +44,20 @@ export enum ParSimulateParams {
   depththresh = "depththresh", // 开始进行水动力计算的水位差阈值，单位 m，默认值为 0.1
 }
 
+export enum InpBuildParams {
+  Infiltration = "Infiltration",
+  FlowType = "FlowType",
+  MinSlope = "MinSlope",
+  StepRegulation = "StepRegulation",
+  ModelName = "ModelName",
+  ConduitID = "ConduitID",
+  JunctionID = "JunctionID",
+  OutfallID = "OutfallID",
+  ConduitMatch = "ConduitMatch",
+  JunctionMatch = "JunctionMatch",
+  OutfallMatch = "OutfallMatch",
+}
+
 export enum InpJunction {
   Name = "Name",
   Description = "Description",

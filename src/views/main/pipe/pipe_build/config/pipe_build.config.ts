@@ -102,7 +102,7 @@ export const pipeInfiltrationConfig: IForm = {
   formItems: [
     {
       type: "radio",
-      field: "type",
+      field: "Infiltration",
       options: [
         {
           radioLabel: "Horton",
@@ -135,7 +135,7 @@ export const pipeFlowTypeConfig: IForm = {
   formItems: [
     {
       type: "radio",
-      field: "type",
+      field: "FlowType",
       options: [
         {
           radioLabel: "Dynamic Wave",
@@ -167,7 +167,7 @@ export const pipeFlowTypeConfig: IForm = {
 export const pipeMinSlopeConfig: IInput = {
   inputItems: [
     {
-      field: "pipeMinSlope",
+      field: "MinSlope",
       placeholder: "请输入管道最小坡度...",
       rules: [
         {
@@ -188,7 +188,7 @@ export const pipeMinSlopeConfig: IInput = {
 export const pipeStepRegulationConfig: IInput = {
   inputItems: [
     {
-      field: "pipeStepRegulation",
+      field: "StepRegulation",
       placeholder: "请输入管网模拟步长调控系数...",
       rules: [
         {
@@ -206,10 +206,10 @@ export const pipeStepRegulationConfig: IInput = {
   },
 };
 
-export const pipeModelBtnConfig: IInput = {
+export const pipeModelNameConfig: IInput = {
   inputItems: [
     {
-      field: "pipeModel",
+      field: "ModelName",
       placeholder: "请输入管网模型名称...",
       rules: [
         {
@@ -218,11 +218,9 @@ export const pipeModelBtnConfig: IInput = {
           trigger: "blur",
         },
       ],
-      hasButton: true,
-      btnName: "生成模型",
     },
   ],
   itemStyle: {
-    margin: "15px 0",
+    margin: "10px 0",
   },
 };
