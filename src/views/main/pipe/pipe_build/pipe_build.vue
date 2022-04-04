@@ -80,7 +80,7 @@
     </el-tabs>
     <div class="split split-add">管网模型名称</div>
     <div class="build">
-      <wj-input v-bind="pipeModelBtnConfig" v-model="formData" />
+      <wj-input v-bind="pipeModelNameConfig" v-model="formData" />
       <el-button type="primary" @click="handleBuildInp">建立模型</el-button>
     </div>
   </div>
