@@ -150,7 +150,7 @@ export default defineComponent({
     );
 
     watch(conduitPath, () => {
-      // 文件路径改变则立即发送给后台
+      // 监听shp文件路径名称的改变执行post文件操作
       conduitID.value = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
       shpData.append("pipeID", conduitID.value.toString());
