@@ -150,7 +150,7 @@ export default defineComponent({
     );
 
     watch(conduitPath, () => {
-      // 文件改变则立即发送给后台
+      // 文件路径改变则立即发送给后台
       conduitID.value = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
       shpData.append("pipeID", conduitID.value.toString());
