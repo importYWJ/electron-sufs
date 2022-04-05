@@ -76,6 +76,8 @@
         <wj-input v-bind="pipeMinSlopeConfig" v-model="formData" />
         <div class="split">管网模拟步长调控系数</div>
         <wj-input v-bind="pipeStepRegulationConfig" v-model="formData" />
+        <div class="split">管线模拟单位</div>
+        <wj-form v-bind="pipeSimulateUnitConfig" v-model="formData" />
       </el-tab-pane>
     </el-tabs>
     <div class="split split-add">管网模型名称</div>
@@ -99,6 +101,7 @@ import {
   pipeFlowTypeConfig,
   pipeMinSlopeConfig,
   pipeStepRegulationConfig,
+  pipeSimulateUnitConfig,
   pipeModelNameConfig,
 } from "./config/pipe_build.config";
 import WjInput from "@/base-ui/input";
@@ -235,6 +238,7 @@ export default defineComponent({
       pipeFlowTypeConfig,
       pipeMinSlopeConfig,
       pipeStepRegulationConfig,
+      pipeSimulateUnitConfig,
       pipeModelNameConfig,
       formData,
       ConduitTable,

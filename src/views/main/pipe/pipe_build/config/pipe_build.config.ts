@@ -206,6 +206,43 @@ export const pipeStepRegulationConfig: IInput = {
   },
 };
 
+export const pipeSimulateUnitConfig: IForm = {
+  formItems: [
+    {
+      type: "select",
+      field: "unit",
+      label: "管线模拟单位",
+      placeholder: "请选择管线模拟单位...",
+      options: [
+        { value: "CMS", label: "CMS" },
+        { value: "CFS", label: "CFS" },
+        { value: "GPM", label: "GPM" },
+        { value: "MGD", label: "MGD" },
+        { value: "LPS", label: "LPS" },
+        { value: "MLD", label: "MLD" },
+      ],
+      rules: [
+        {
+          required: true,
+          message: "管线模拟单位为必选项！",
+          trigger: "blur",
+        },
+      ],
+    },
+  ],
+  labelWidth: "120px",
+  itemStyle: {
+    padding: "15px 0px 0px",
+  },
+  colLayout: {
+    xl: 24,
+    lg: 24,
+    md: 24,
+    sm: 24,
+    xs: 24,
+  },
+};
+
 export const pipeModelNameConfig: IInput = {
   inputItems: [
     {
