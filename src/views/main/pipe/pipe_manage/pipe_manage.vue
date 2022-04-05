@@ -9,7 +9,7 @@
         @selectionChange="selectFoo"
       >
         <template #createDate="scope">
-          {{ $filters.formatTimestamp(scope.row.scid) }}
+          {{ $filters.formatTimestamp(scope.row.inpid) }}
         </template>
         <template #handler="scope">
           <div class="handle-btns">
@@ -21,8 +21,8 @@
               :icon="Delete"
               @click="handleDeleteClick(scope.row)"
             >
-              删除</el-button
-            >
+              删除
+            </el-button>
           </div>
         </template>
         <template #headerHandler>
@@ -68,7 +68,10 @@ export default defineComponent({
     };
 
     const handleDeleteClick = (item: any) => {
-      console.log(`删除${item[0]}`);
+      store.dispatch("modelModule/modelDeleteAction", {
+        pageUrl: "/pipe/delete",
+        modelID: item.inpid,
+      });
     };
 
     const selectFoo = (value: any) => {
