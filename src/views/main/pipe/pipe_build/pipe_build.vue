@@ -211,7 +211,7 @@ export default defineComponent({
       for (const item in formData.value) {
         inpList.append(item, formData.value[item]);
       }
-      store.dispatch("modelModule/modelConfigAction", {
+      store.dispatch("pipeModule/pipeConfigAction", {
         pageUrl: "/pipe/pipe_build",
         modelData: inpList,
       });

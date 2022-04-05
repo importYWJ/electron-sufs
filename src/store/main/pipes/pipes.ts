@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import { IRootState } from "@/store/types";
 import { IPipeState } from "./types";
-import { getPipeFields } from "@/service/main/pipes/pipes";
+import { getPipeFields, addPipeConfig } from "@/service/main/pipes/pipes";
 
 const pipeModule: Module<IPipeState, IRootState> = {
   namespaced: true,
@@ -33,6 +33,10 @@ const pipeModule: Module<IPipeState, IRootState> = {
       } else if (payload.pipeType === "Outfall") {
         commit("changeOutfallFieldsList", pipeFields.data);
       }
+    },
+    async pipeConfigAction({ commit }, payload: any) {
+      const response = await addPipeConfig(payload.pageUrl, payload.modelData);
+      console.log(response);
     },
   },
 };

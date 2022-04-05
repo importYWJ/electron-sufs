@@ -80,6 +80,12 @@ import WjInput from "@/base-ui/input";
 import { ParModelParams } from "@/global/enum";
 
 export default defineComponent({
+  props: {
+    responseParList: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   components: { WjForm, WjInput },
   setup() {
     const formOriginData: any = {};

@@ -9,3 +9,13 @@ export function getPipeFields(url: string, shpData: any): Promise<any> {
     },
   });
 }
+
+export function addPipeConfig(url: string, inpList: any): Promise<any> {
+  return wjRequest.post({
+    url: url,
+    data: inpList,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}
