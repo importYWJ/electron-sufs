@@ -209,7 +209,6 @@ export default defineComponent({
       // 时间戳作为ID
       inpList.append("inpID", now_timestamp.toString());
       for (const item in formData.value) {
-        // 转换: 1.对象序列化; 2.排除文件不再发送
         if (typeof formData.value[item] === "object") {
           if (formData.value[item].file !== undefined) {
             continue;
