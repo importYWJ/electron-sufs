@@ -37,7 +37,7 @@
 import { defineComponent, ref, computed, watch } from "vue";
 import WjTable from "@/base-ui/table";
 import { Edit, Delete } from "@element-plus/icons-vue";
-import { formConfig, tableConfig } from "./config/pipe_manage.config";
+import { tableConfig } from "./config/pipe_manage.config";
 import { useStore } from "@/store";
 
 export default defineComponent({
@@ -50,8 +50,8 @@ export default defineComponent({
     watch(pageInfo, () => getPageData());
 
     const getPageData = (queryInfo: any = {}) => {
-      store.dispatch("modelModule/loadModelListAction", {
-        pageUrl: "/model/queryAll",
+      store.dispatch("pipeModule/loadModelListAction", {
+        pageUrl: "/pipe/queryAll",
         queryInfo: {
           offset: pageInfo.value.currentPage * pageInfo.value.pageSize, // 偏移(可用于分页)
           size: pageInfo.value.pageSize, // 一次展示数量
@@ -60,18 +60,9 @@ export default defineComponent({
       });
     };
     getPageData();
-    const formItems = formConfig?.formItems ?? [];
-    const formOriginData: any = {};
-    for (const item of formItems) {
-      formOriginData[item.field] = "";
-    }
-    const formData = ref(formOriginData);
-    const tableData = computed(() => store.state.modelModule.modelList);
-    const dataCount = computed(() => store.state.modelModule.modelCount);
+    const tableData = computed(() => store.state.pipeModule.pipeModelList);
+    const dataCount = computed(() => store.state.pipeModule.pipeModelCount);
 
-    const handleResetClick = () => {
-      formData.value = formOriginData;
-    };
     const handleSearchClick = () => {
       console.log("查询按钮点击事件~");
     };
@@ -85,15 +76,12 @@ export default defineComponent({
     };
 
     return {
-      formConfig,
       tableConfig,
-      formData, // 双向
       tableData, // 单向
       dataCount,
       pageInfo,
       Edit,
       Delete,
-      handleResetClick,
       handleSearchClick,
       handleDeleteClick,
       selectFoo,

@@ -207,6 +207,7 @@ export const pipeModelConfig: IForm = {
       type: "select",
       field: "inp_file",
       placeholder: "请选择构建的管网模型...",
+      options: [],
     },
   ],
   labelWidth: "0px",

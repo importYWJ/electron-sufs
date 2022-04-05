@@ -98,6 +98,27 @@ export default defineComponent({
     const evaporateStyle = ref("file");
 
     const store = useStore();
+    const getPipeModelItems = () => {
+      pipeModelConfig.formItems[0].options = []; // 重置
+      store.state.pipeModule.pipeModelList.forEach((item) => {
+        pipeModelConfig.formItems[0].options?.push({
+          value: item.inpid,
+          label: item.name,
+        });
+      });
+    };
+    if (store.state.modelModule.modelList.length === 0) {
+      store
+        .dispatch("pipeModule/loadPipeModelListAction", {
+          pageUrl: "/pipe/queryAll",
+        })
+        .then((res) => {
+          getPipeModelItems();
+        });
+    } else {
+      getPipeModelItems();
+    }
+
     const handleBuildModel = () => {
       const parList = new FormData();
       const now_timestamp = Math.round(new Date().getTime() / 1000);
