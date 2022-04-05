@@ -212,7 +212,7 @@ export default defineComponent({
         inpList.append(item, formData.value[item]);
       }
       store.dispatch("modelModule/modelConfigAction", {
-        pageUrl: "/model/model_build",
+        pageUrl: "/pipe/pipe_build",
         modelData: inpList,
       });
     };

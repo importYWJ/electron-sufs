@@ -27,11 +27,11 @@ const pipeModule: Module<IPipeState, IRootState> = {
     async loadPipeFieldsAction({ commit }, payload) {
       const pipeFields = await getPipeFields(payload.pageUrl, payload.shpData);
       if (payload.pipeType === "Conduit") {
-        commit("changeConduitFieldsList", pipeFields);
+        commit("changeConduitFieldsList", pipeFields.data);
       } else if (payload.pipeType === "Junction") {
-        commit("changeJunctionFieldsList", pipeFields);
+        commit("changeJunctionFieldsList", pipeFields.data);
       } else if (payload.pipeType === "Outfall") {
-        commit("changeOutfallFieldsList", pipeFields);
+        commit("changeOutfallFieldsList", pipeFields.data);
       }
     },
   },
