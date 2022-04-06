@@ -23,7 +23,7 @@
           circle
         />
         <el-button :icon="Operation" @click="showLog = !showLog" circle />
-        <el-button :icon="MapLocation" @click="showLog = !showLog" circle />
+        <el-button :icon="MapLocation" @click="showMap" circle />
         <el-button :icon="Setting" @click="showLog = !showLog" circle />
       </div>
     </div>
@@ -55,7 +55,7 @@ import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 import WjBreadcrumb from "@/base-ui/breadcrumb";
 import { pathMapBreadcrumbs } from "@/utils/map-menus";
 import { useStore } from "@/store";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import SimulateManage from "@/views/main/simulate/simulate_manage/simulate_manage.vue";
 import SimulateBuild from "@/components/simulate-build";
 import {
@@ -91,6 +91,12 @@ export default defineComponent({
     const showLog = ref(false);
     const showSimulateBuildDialog = ref(false);
     const showSimulateManageDialog = ref(false);
+    const router = useRouter();
+    const showMap = () => {
+      router.push({
+        path: "/main/simulate/simulate_run",
+      });
+    };
     return {
       isFold,
       handleFoldClick,
@@ -103,6 +109,7 @@ export default defineComponent({
       showLog,
       showSimulateBuildDialog,
       showSimulateManageDialog,
+      showMap,
     };
   },
 });

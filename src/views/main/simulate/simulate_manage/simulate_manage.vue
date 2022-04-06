@@ -125,7 +125,6 @@ export default defineComponent({
         modelID: modelInfo.value.modelID,
         simulateID: item.sid,
       });
-      console.log("测试");
     };
     const handleEditClick = (item: any) => {
       // 1. 根据item请求OriginData格式的数据
