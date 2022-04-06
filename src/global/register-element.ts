@@ -38,6 +38,7 @@ import {
   ElProgress,
   ElDialog,
   ElScrollbar,
+  ElTooltip,
 } from "element-plus";
 
 const components = [
@@ -76,6 +77,7 @@ const components = [
   ElProgress,
   ElDialog,
   ElScrollbar,
+  ElTooltip,
 ];
 
 export default function (app: App): void {

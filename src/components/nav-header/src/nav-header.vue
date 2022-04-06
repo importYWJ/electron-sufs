@@ -12,19 +12,29 @@
       <wj-breadcrumb :breadcrumbs="breadcrumbs"></wj-breadcrumb>
       <!-- <div id="title">城市洪涝时空建模与模拟系统</div> -->
       <div class="right">
-        <el-button
-          :icon="Search"
-          @click="showSimulateManageDialog = !showSimulateManageDialog"
-          circle
-        />
-        <el-button
-          :icon="Grid"
-          @click="showSimulateBuildDialog = !showSimulateBuildDialog"
-          circle
-        />
-        <el-button :icon="Operation" @click="showLog = !showLog" circle />
-        <el-button :icon="MapLocation" @click="showMap" circle />
-        <el-button :icon="Setting" @click="showLog = !showLog" circle />
+        <el-tooltip content="情景管理" placement="bottom" effect="light">
+          <el-button
+            :icon="Search"
+            @click="showSimulateManageDialog = !showSimulateManageDialog"
+            circle
+          />
+        </el-tooltip>
+        <el-tooltip content="情景构建" placement="bottom" effect="light">
+          <el-button
+            :icon="Grid"
+            @click="showSimulateBuildDialog = !showSimulateBuildDialog"
+            circle
+          />
+        </el-tooltip>
+        <el-tooltip content="地图操作" placement="bottom" effect="light">
+          <el-button :icon="Operation" @click="showLog = !showLog" circle />
+        </el-tooltip>
+        <el-tooltip content="显示地图" placement="bottom" effect="light">
+          <el-button :icon="MapLocation" @click="showMap" circle />
+        </el-tooltip>
+        <el-tooltip content="系统设置" placement="bottom" effect="light">
+          <el-button :icon="Setting" @click="showLog = !showLog" circle />
+        </el-tooltip>
       </div>
     </div>
   </div>
