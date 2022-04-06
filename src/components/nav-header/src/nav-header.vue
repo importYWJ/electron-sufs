@@ -12,12 +12,39 @@
       <wj-breadcrumb :breadcrumbs="breadcrumbs"></wj-breadcrumb>
       <!-- <div id="title">城市洪涝时空建模与模拟系统</div> -->
       <div class="right">
-        <el-button :icon="Search" @click="drawer = !drawer" circle />
+        <el-button
+          :icon="Search"
+          @click="showSimulateManageDialog = !showSimulateManageDialog"
+          circle
+        />
+        <el-button
+          :icon="Grid"
+          @click="showSimulateBuildDialog = !showSimulateBuildDialog"
+          circle
+        />
+        <el-button :icon="Operation" @click="showLog = !showLog" circle />
+        <el-button :icon="MapLocation" @click="showLog = !showLog" circle />
+        <el-button :icon="Setting" @click="showLog = !showLog" circle />
       </div>
     </div>
   </div>
-  <el-drawer v-model="drawer" title="I am the title" :with-header="false">
-    <span>运行日志</span>
+  <el-dialog
+    v-model="showSimulateManageDialog"
+    title="情景管理"
+    width="90%"
+    draggable
+  >
+    <simulate-manage></simulate-manage>
+  </el-dialog>
+  <el-dialog
+    v-model="showSimulateBuildDialog"
+    title="情景构建"
+    width="90%"
+    draggable
+  >
+    <simulate-build></simulate-build>
+  </el-dialog>
+  <el-drawer v-model="showLog" title="运行日志">
     <el-progress :percentage="50" />
   </el-drawer>
 </template>
@@ -25,17 +52,27 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
-import WjBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb";
+import WjBreadcrumb from "@/base-ui/breadcrumb";
 import { pathMapBreadcrumbs } from "@/utils/map-menus";
 import { useStore } from "@/store";
 import { useRoute } from "vue-router";
-import { Search } from "@element-plus/icons-vue";
+import SimulateManage from "@/views/main/simulate/simulate_manage/simulate_manage.vue";
+import SimulateBuild from "@/components/simulate-build";
+import {
+  Search,
+  MapLocation,
+  Operation,
+  Grid,
+  Setting,
+} from "@element-plus/icons-vue";
 
 export default defineComponent({
   components: {
     ArrowLeftBold,
     ArrowRightBold,
     WjBreadcrumb,
+    SimulateManage,
+    SimulateBuild,
   },
   emits: ["foldChange"],
   setup(props, { emit }) {
@@ -51,11 +88,22 @@ export default defineComponent({
       const route = useRoute();
       return pathMapBreadcrumbs(userMenus, route.path);
     });
-    // const btnClick = () => {
-    //   console.log("测试");
-    // };
-    const drawer = ref(false);
-    return { isFold, handleFoldClick, breadcrumbs, Search, drawer };
+    const showLog = ref(false);
+    const showSimulateBuildDialog = ref(false);
+    const showSimulateManageDialog = ref(false);
+    return {
+      isFold,
+      handleFoldClick,
+      breadcrumbs,
+      Search,
+      MapLocation,
+      Operation,
+      Grid,
+      Setting,
+      showLog,
+      showSimulateBuildDialog,
+      showSimulateManageDialog,
+    };
   },
 });
 </script>
