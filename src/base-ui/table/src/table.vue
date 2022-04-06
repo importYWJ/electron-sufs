@@ -15,6 +15,7 @@
       :data="tableData"
       border
       style="width: 100%"
+      :height="height"
       @selection-change="handleSelectionChange"
     >
       <!-- 选择列 -->
@@ -100,6 +101,10 @@ export default defineComponent({
     showSelectColumn: {
       type: Boolean,
       default: false,
+    },
+    height: {
+      type: String,
+      default: "460",
     },
   },
   emits: ["selectionChange", "update:page"],
