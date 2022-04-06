@@ -80,12 +80,12 @@ import WjInput from "@/base-ui/input";
 import { ParModelParams } from "@/global/enum";
 
 export default defineComponent({
-  props: {
-    responseParList: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  // props: {
+  //   responseParList: {
+  //     type: Object,
+  //     default: () => ({}),
+  //   },
+  // },
   components: { WjForm, WjInput },
   setup() {
     const formOriginData: any = {};
@@ -98,8 +98,8 @@ export default defineComponent({
     const evaporateStyle = ref("file");
 
     const store = useStore();
-    const getPipeModelItems = () => {
-      pipeModelConfig.formItems[0].options = []; // 重置
+    const getModelItems = () => {
+      pipeModelConfig.formItems[0].options = [];
       store.state.pipeModule.pipeModelList.forEach((item) => {
         pipeModelConfig.formItems[0].options?.push({
           value: item.inpid,
@@ -107,18 +107,17 @@ export default defineComponent({
         });
       });
     };
-    if (store.state.modelModule.modelList.length === 0) {
+    if (store.state.pipeModule.pipeModelList.length === 0) {
       store
         .dispatch("pipeModule/loadPipeModelListAction", {
           pageUrl: "/pipe/queryAll",
         })
         .then((res) => {
-          getPipeModelItems();
+          getModelItems();
         });
     } else {
-      getPipeModelItems();
+      getModelItems();
     }
-
     const handleBuildModel = () => {
       const parList = new FormData();
       const now_timestamp = Math.round(new Date().getTime() / 1000);

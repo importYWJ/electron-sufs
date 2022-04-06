@@ -18,6 +18,15 @@
           <div class="handle-btns">
             <el-button
               size="small"
+              :icon="VideoPlay"
+              type="primary"
+              round
+              @click="handleRunClick(scope.row)"
+            >
+              运行
+            </el-button>
+            <el-button
+              size="small"
               type="text"
               :icon="Edit"
               @click="handleEditClick(scope.row)"
@@ -53,7 +62,7 @@ import {
   simulateTableConfig,
 } from "./config/simulate_manage.config";
 import { useStore } from "@/store";
-import { Edit, Delete } from "@element-plus/icons-vue";
+import { Edit, Delete, VideoPlay } from "@element-plus/icons-vue";
 
 export default defineComponent({
   components: {
@@ -84,7 +93,6 @@ export default defineComponent({
       getModelItems();
     }
     const modelInfo = ref({ modelID: "" });
-
     const pageInfo = ref({
       currentPage: 0,
       pageSize: 10,
@@ -110,6 +118,15 @@ export default defineComponent({
       () => store.state.modelModule.simulateCount
     );
     const dialogVisible = ref(false);
+
+    const handleRunClick = (item: any) => {
+      store.dispatch("modelModule/modelRunAction", {
+        pageUrl: "/simulate/run",
+        modelID: modelInfo.value.modelID,
+        simulateID: item.sid,
+      });
+      console.log("测试");
+    };
     const handleEditClick = (item: any) => {
       // 1. 根据item请求OriginData格式的数据
       // store.dispatch("modelModule/modelQueryAction", {
@@ -136,10 +153,12 @@ export default defineComponent({
       pageInfo,
       simulateDataCount,
       dialogVisible,
+      handleRunClick,
       handleEditClick,
       handleDeleteClick,
       Edit,
       Delete,
+      VideoPlay,
     };
   },
 });

@@ -171,7 +171,7 @@ export const otherInfoConfig: IInput = {
       label: "模拟时间步长：",
       placeholder: "请输入模拟时间步长...",
       hasAppend: true,
-      appendValue: " 秒(s) ",
+      appendValue: " 分钟(min) ",
       rules: [
         {
           required: true,
@@ -185,7 +185,7 @@ export const otherInfoConfig: IInput = {
       label: "结果输出时间步长：",
       placeholder: "结果输出时间步长...",
       hasAppend: true,
-      appendValue: " 分钟(min) ",
+      appendValue: " 秒(s) ",
       rules: [
         {
           required: true,
@@ -220,7 +220,7 @@ export const otherInfoConfig: IInput = {
       label: "水动力计算时间步长安全系数：",
       placeholder: "动力计算时间步长安全系数...",
       hasAppend: true,
-      appendValue: " 秒(s) ",
+      appendValue: " % ",
       rules: [
         {
           required: true,

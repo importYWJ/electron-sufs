@@ -6,6 +6,7 @@ import {
   addModelConfig,
   deleteModelConfig,
   queryModelConfig,
+  runModel,
 } from "@/service/main/models/models";
 
 const modelModule: Module<IModelState, IRootState> = {
@@ -71,6 +72,15 @@ const modelModule: Module<IModelState, IRootState> = {
       const response = await addModelConfig(
         payload.pageUrl,
         payload.simulateData
+      );
+      console.log(response);
+    },
+    // 情景运行
+    async modelRunAction({ commit }, payload: any) {
+      const response = await runModel(
+        payload.pageUrl,
+        payload.modelID,
+        payload.simulateID
       );
       console.log(response);
     },

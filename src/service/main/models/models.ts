@@ -37,3 +37,14 @@ export function queryModelConfig(url: string, modelID: string): Promise<any> {
     params: modelID,
   });
 }
+
+export function runModel(
+  url: string,
+  modelID: string,
+  simulateID: string
+): Promise<any> {
+  return wjRequest.get({
+    url: url,
+    params: { modelID, simulateID },
+  });
+}
