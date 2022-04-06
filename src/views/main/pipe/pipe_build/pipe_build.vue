@@ -9,19 +9,21 @@
           :multiple="true"
         />
         <div class="split">字段匹配</div>
-        <wj-table v-bind="pipelineTableConfig" :tableData="ConduitTable">
-          <template #shpfield="scope">
-            <el-select v-model="formData.ConduitMatch[scope.row.origin]">
-              <el-option
-                v-for="item in conduitFields"
-                :key="item"
-                :label="item"
-                :value="item"
-              ></el-option>
-            </el-select>
-          </template>
-          <template #header><div class="table-top"></div></template>
-        </wj-table>
+        <el-scrollbar height="329px">
+          <wj-table v-bind="pipelineTableConfig" :tableData="ConduitTable">
+            <template #shpfield="scope">
+              <el-select v-model="formData.ConduitMatch[scope.row.origin]">
+                <el-option
+                  v-for="item in conduitFields"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                ></el-option>
+              </el-select>
+            </template>
+            <template #header><div class="table-top"></div></template>
+          </wj-table>
+        </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="管点建模">
         <div class="split">原始管点Shp数据</div>
@@ -31,19 +33,21 @@
           :multiple="true"
         />
         <div class="split">字段匹配</div>
-        <wj-table v-bind="pipePointTableConfig" :tableData="JunctionTable">
-          <template #shpfield="scope">
-            <el-select v-model="formData.JunctionMatch[scope.row.origin]">
-              <el-option
-                v-for="item in junctionFields"
-                :key="item"
-                :label="item"
-                :value="item"
-              ></el-option>
-            </el-select>
-          </template>
-          <template #header><div class="table-top"></div></template>
-        </wj-table>
+        <el-scrollbar height="329px">
+          <wj-table v-bind="pipePointTableConfig" :tableData="JunctionTable">
+            <template #shpfield="scope">
+              <el-select v-model="formData.JunctionMatch[scope.row.origin]">
+                <el-option
+                  v-for="item in junctionFields"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                ></el-option>
+              </el-select>
+            </template>
+            <template #header><div class="table-top"></div></template>
+          </wj-table>
+        </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="排水口建模">
         <div class="split">原始排水口Shp数据</div>
@@ -53,19 +57,21 @@
           :multiple="true"
         />
         <div class="split">字段匹配</div>
-        <wj-table v-bind="pipeOutfallTableConfig" :tableData="OutfallTable">
-          <template #shpfield="scope">
-            <el-select v-model="formData.OutfallMatch[scope.row.origin]">
-              <el-option
-                v-for="item in outfallFields"
-                :key="item"
-                :label="item"
-                :value="item"
-              ></el-option>
-            </el-select>
-          </template>
-          <template #header><div class="table-top"></div></template>
-        </wj-table>
+        <el-scrollbar height="329px">
+          <wj-table v-bind="pipeOutfallTableConfig" :tableData="OutfallTable">
+            <template #shpfield="scope">
+              <el-select v-model="formData.OutfallMatch[scope.row.origin]">
+                <el-option
+                  v-for="item in outfallFields"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                ></el-option>
+              </el-select>
+            </template>
+            <template #header><div class="table-top"></div></template>
+          </wj-table>
+        </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="管网参数配置">
         <div class="split">管网下渗模型</div>

@@ -48,7 +48,7 @@
     </div>
   </div>
   <el-dialog v-model="dialogVisible" title="情景修改" width="30%" draggable>
-    <simulate-build></simulate-build>
+    <simulate-build scrollheight="300px"></simulate-build>
   </el-dialog>
 </template>
 

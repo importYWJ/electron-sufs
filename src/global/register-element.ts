@@ -37,6 +37,7 @@ import {
   ElDrawer,
   ElProgress,
   ElDialog,
+  ElScrollbar,
 } from "element-plus";
 
 const components = [
@@ -74,6 +75,7 @@ const components = [
   ElDrawer,
   ElProgress,
   ElDialog,
+  ElScrollbar,
 ];
 
 export default function (app: App): void {

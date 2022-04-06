@@ -1,5 +1,5 @@
 <template>
-  <simulate-build />
+  <simulate-build scrollheight="800px" />
 </template>
 
 <script lang="ts">

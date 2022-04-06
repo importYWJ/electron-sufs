@@ -1,63 +1,65 @@
 <template>
   <div class="simulate_build">
-    <!-- 选择模型 + 计算模式 -->
-    <div class="split">基础信息</div>
-    <wj-form v-bind="basicInfoConfig" v-model="formData" />
-    <!-- 降雨数据 -->
-    <div class="split">降雨数据配置</div>
-    <el-radio-group v-model="rainfallStyle">
-      <el-radio label="rainfall">降雨时序文件</el-radio>
-      <wj-input
-        v-bind="rainfallConfig"
-        v-model="formData"
-        :disable="rainfallStyle === 'rainfall' ? false : true"
-      />
-      <el-radio label="dynamic_rain_file">
-        网络通用数据格式文件(.nctCDF)
-      </el-radio>
-      <wj-input
-        v-bind="dynamic_rain_fileConfig"
-        v-model="formData"
-        :disable="rainfallStyle === 'dynamic_rain_file' ? false : true"
-      />
-    </el-radio-group>
-    <el-radio-group v-model="manningStyle">
-      <!-- 曼宁系数 -->
-      <div class="split">曼宁系数配置</div>
-      <el-radio label="fpfric"> 统一曼宁系数 </el-radio>
-      <wj-input
-        v-bind="manning_uniformConfig"
-        v-model="formData"
-        :disable="manningStyle === 'fpfric' ? false : true"
-      />
-      <el-radio label="manningfile"> 曼宁系数文件 </el-radio>
-      <wj-input
-        v-bind="manning_fileConfig"
-        v-model="formData"
-        :disable="manningStyle === 'manningfile' ? false : true"
-      />
-    </el-radio-group>
-    <!-- 模拟时间 -->
-    <div class="split">模拟时间</div>
-    <el-radio-group v-model="simTimeStyle">
-      <el-radio label="totalTime">总体时长</el-radio>
-      <wj-input
-        v-bind="totalTimeConfig"
-        v-model="formData"
-        :disable="simTimeStyle === 'totalTime' ? false : true"
-      />
-      <el-radio label="detailTime">详细时间</el-radio>
-      <wj-form
-        v-bind="detailTimeConfig"
-        v-model="formData"
-        :disable="simTimeStyle === 'detailTime' ? false : true"
-      />
-    </el-radio-group>
-    <div class="split">模拟参数</div>
-    <wj-input v-bind="otherInfoConfig" v-model="formData" />
-    <div class="save_config">
-      <el-button type="primary" @click="handleSaveConfig">保存配置</el-button>
-    </div>
+    <el-scrollbar :height="scrollheight" always>
+      <!-- 选择模型 + 计算模式 -->
+      <div class="split">基础信息</div>
+      <wj-form v-bind="basicInfoConfig" v-model="formData" />
+      <!-- 降雨数据 -->
+      <div class="split">降雨数据配置</div>
+      <el-radio-group v-model="rainfallStyle">
+        <el-radio label="rainfall">降雨时序文件</el-radio>
+        <wj-input
+          v-bind="rainfallConfig"
+          v-model="formData"
+          :disable="rainfallStyle === 'rainfall' ? false : true"
+        />
+        <el-radio label="dynamic_rain_file">
+          网络通用数据格式文件(.nctCDF)
+        </el-radio>
+        <wj-input
+          v-bind="dynamic_rain_fileConfig"
+          v-model="formData"
+          :disable="rainfallStyle === 'dynamic_rain_file' ? false : true"
+        />
+      </el-radio-group>
+      <el-radio-group v-model="manningStyle">
+        <!-- 曼宁系数 -->
+        <div class="split">曼宁系数配置</div>
+        <el-radio label="fpfric"> 统一曼宁系数 </el-radio>
+        <wj-input
+          v-bind="manning_uniformConfig"
+          v-model="formData"
+          :disable="manningStyle === 'fpfric' ? false : true"
+        />
+        <el-radio label="manningfile"> 曼宁系数文件 </el-radio>
+        <wj-input
+          v-bind="manning_fileConfig"
+          v-model="formData"
+          :disable="manningStyle === 'manningfile' ? false : true"
+        />
+      </el-radio-group>
+      <!-- 模拟时间 -->
+      <div class="split">模拟时间</div>
+      <el-radio-group v-model="simTimeStyle">
+        <el-radio label="totalTime">总体时长</el-radio>
+        <wj-input
+          v-bind="totalTimeConfig"
+          v-model="formData"
+          :disable="simTimeStyle === 'totalTime' ? false : true"
+        />
+        <el-radio label="detailTime">详细时间</el-radio>
+        <wj-form
+          v-bind="detailTimeConfig"
+          v-model="formData"
+          :disable="simTimeStyle === 'detailTime' ? false : true"
+        />
+      </el-radio-group>
+      <div class="split">模拟参数</div>
+      <wj-input v-bind="otherInfoConfig" v-model="formData" />
+      <div class="save_config">
+        <el-button type="primary" @click="handleSaveConfig">保存配置</el-button>
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -79,6 +81,12 @@ import { useStore } from "@/store";
 import { ParSimulateParams } from "@/global/enum";
 
 export default defineComponent({
+  props: {
+    scrollheight: {
+      type: String,
+      default: "500px",
+    },
+  },
   components: {
     WjForm,
     WjInput,

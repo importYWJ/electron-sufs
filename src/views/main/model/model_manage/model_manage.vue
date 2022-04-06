@@ -39,7 +39,7 @@
     </div>
   </div>
   <el-dialog v-model="dialogVisible" title="模型修改" width="30%" draggable>
-    <model-build></model-build>
+    <model-build scrollheight="300px"></model-build>
   </el-dialog>
 </template>
 

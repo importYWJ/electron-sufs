@@ -1,5 +1,5 @@
 <template>
-  <model-build />
+  <model-build scrollheight="600px" />
 </template>
 
 <script lang="ts">

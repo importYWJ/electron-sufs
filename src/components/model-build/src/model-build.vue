@@ -2,56 +2,60 @@
   <div class="model_build">
     <el-tabs type="border-card">
       <el-tab-pane label="基础设置">
-        <div class="split">模型名称</div>
-        <wj-form v-bind="basicInfoConfig" v-model="formData" />
-        <div class="split">模拟方式</div>
-        <wj-form v-bind="modelTypeConfig" v-model="formData" />
+        <el-scrollbar :height="scrollheight" always>
+          <div class="split">模型名称</div>
+          <wj-form v-bind="basicInfoConfig" v-model="formData" />
+          <div class="split">模拟方式</div>
+          <wj-form v-bind="modelTypeConfig" v-model="formData" />
+        </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="参数配置">
-        <!-- DEM -->
-        <div class="split">导入DEM文件</div>
-        <wj-input v-bind="DEMfileConfig" v-model="formData" />
-        <!-- 河网数据 -->
-        <div class="split">地表河网数据配置</div>
-        <wj-input v-bind="riverfileConfig" v-model="formData" />
-        <!-- 下渗速率 -->
-        <div class="split split-add">下渗速率</div>
-        <el-radio-group v-model="infiltrateStyle">
-          <el-radio label="file">下渗速率文件</el-radio>
-          <wj-input
-            v-bind="infiltration_fileConfig"
-            v-model="formData"
-            :disable="infiltrateStyle === 'file' ? false : true"
-          />
-          <el-radio label="uniform">通用下渗速率</el-radio>
-          <wj-input
-            v-bind="infiltration_uniformConfig"
-            v-model="formData"
-            :disable="infiltrateStyle === 'uniform' ? false : true"
-          />
-        </el-radio-group>
-        <!-- 蒸发速率 -->
-        <div class="split add">蒸发速率</div>
-        <el-radio-group v-model="evaporateStyle">
-          <el-radio label="file">蒸发速率文件</el-radio>
-          <wj-input
-            v-bind="evaporation_fileConfig"
-            v-model="formData"
-            :disable="evaporateStyle === 'file' ? false : true"
-          />
-          <el-radio label="uniform">通用蒸发速率</el-radio>
-          <wj-input
-            v-bind="evaporation_uniformConfig"
-            v-model="formData"
-            :disable="evaporateStyle === 'uniform' ? false : true"
-          />
-        </el-radio-group>
-        <!-- 地面监测点 -->
-        <div class="split add">地面监测点</div>
-        <wj-input v-bind="monitorConfig" v-model="formData" />
-        <!-- 选择管网模型 -->
-        <div class="split add">SUFS管网模型</div>
-        <wj-form v-bind="pipeModelConfig" v-model="formData" />
+        <el-scrollbar :height="scrollheight" always>
+          <!-- DEM -->
+          <div class="split">导入DEM文件</div>
+          <wj-input v-bind="DEMfileConfig" v-model="formData" />
+          <!-- 河网数据 -->
+          <div class="split">地表河网数据配置</div>
+          <wj-input v-bind="riverfileConfig" v-model="formData" />
+          <!-- 下渗速率 -->
+          <div class="split split-add">下渗速率</div>
+          <el-radio-group v-model="infiltrateStyle">
+            <el-radio label="file">下渗速率文件</el-radio>
+            <wj-input
+              v-bind="infiltration_fileConfig"
+              v-model="formData"
+              :disable="infiltrateStyle === 'file' ? false : true"
+            />
+            <el-radio label="uniform">通用下渗速率</el-radio>
+            <wj-input
+              v-bind="infiltration_uniformConfig"
+              v-model="formData"
+              :disable="infiltrateStyle === 'uniform' ? false : true"
+            />
+          </el-radio-group>
+          <!-- 蒸发速率 -->
+          <div class="split add">蒸发速率</div>
+          <el-radio-group v-model="evaporateStyle">
+            <el-radio label="file">蒸发速率文件</el-radio>
+            <wj-input
+              v-bind="evaporation_fileConfig"
+              v-model="formData"
+              :disable="evaporateStyle === 'file' ? false : true"
+            />
+            <el-radio label="uniform">通用蒸发速率</el-radio>
+            <wj-input
+              v-bind="evaporation_uniformConfig"
+              v-model="formData"
+              :disable="evaporateStyle === 'uniform' ? false : true"
+            />
+          </el-radio-group>
+          <!-- 地面监测点 -->
+          <div class="split add">地面监测点</div>
+          <wj-input v-bind="monitorConfig" v-model="formData" />
+          <!-- 选择管网模型 -->
+          <div class="split add">SUFS管网模型</div>
+          <wj-form v-bind="pipeModelConfig" v-model="formData" />
+        </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
     <div class="build">
@@ -80,12 +84,16 @@ import WjInput from "@/base-ui/input";
 import { ParModelParams } from "@/global/enum";
 
 export default defineComponent({
-  // props: {
-  //   responseParList: {
-  //     type: Object,
-  //     default: () => ({}),
-  //   },
-  // },
+  props: {
+    // responseParList: {
+    //   type: Object,
+    //   default: () => ({}),
+    // },
+    scrollheight: {
+      type: String,
+      default: "500px",
+    },
+  },
   components: { WjForm, WjInput },
   setup() {
     const formOriginData: any = {};
@@ -109,7 +117,7 @@ export default defineComponent({
     };
     if (store.state.pipeModule.pipeModelList.length === 0) {
       store
-        .dispatch("pipeModule/loadPipeModelListAction", {
+        .dispatch("pipeModule/loadModelListAction", {
           pageUrl: "/pipe/queryAll",
         })
         .then((res) => {
