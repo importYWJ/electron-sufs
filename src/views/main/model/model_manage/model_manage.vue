@@ -141,6 +141,6 @@ export default defineComponent({
 
 .tableContent {
   padding: 20px;
-  border-top: 20px solid #f5f5f9;
+  margin-top: 10px;
 }
 </style>
