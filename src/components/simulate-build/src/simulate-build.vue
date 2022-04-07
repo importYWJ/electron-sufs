@@ -22,20 +22,20 @@
           :disable="rainfallStyle === 'dynamic_rain_file' ? false : true"
         />
       </el-radio-group>
-      <el-radio-group v-model="manningStyle">
-        <!-- 曼宁系数 -->
-        <div class="split">曼宁系数配置</div>
-        <el-radio label="fpfric"> 统一曼宁系数 </el-radio>
+      <!-- 蒸发速率 -->
+      <div class="split split-add">蒸发速率</div>
+      <el-radio-group v-model="evaporateStyle">
+        <el-radio label="file">蒸发速率文件</el-radio>
         <wj-input
-          v-bind="manning_uniformConfig"
+          v-bind="evaporation_fileConfig"
           v-model="formData"
-          :disable="manningStyle === 'fpfric' ? false : true"
+          :disable="evaporateStyle === 'file' ? false : true"
         />
-        <el-radio label="manningfile"> 曼宁系数文件 </el-radio>
+        <el-radio label="uniform">通用蒸发速率</el-radio>
         <wj-input
-          v-bind="manning_fileConfig"
+          v-bind="evaporation_uniformConfig"
           v-model="formData"
-          :disable="manningStyle === 'manningfile' ? false : true"
+          :disable="evaporateStyle === 'uniform' ? false : true"
         />
       </el-radio-group>
       <!-- 模拟时间 -->
@@ -71,8 +71,8 @@ import {
   basicInfoConfig,
   rainfallConfig,
   dynamic_rain_fileConfig,
-  manning_fileConfig,
-  manning_uniformConfig,
+  evaporation_fileConfig,
+  evaporation_uniformConfig,
   totalTimeConfig,
   detailTimeConfig,
   otherInfoConfig,
@@ -119,7 +119,7 @@ export default defineComponent({
     }
     const formData = ref(formOriginData);
     const rainfallStyle = ref("rainfall");
-    const manningStyle = ref("fpfric");
+    const evaporateStyle = ref("file");
     const simTimeStyle = ref("totalTime");
     const handleSaveConfig = () => {
       const parList = new FormData();
@@ -144,14 +144,14 @@ export default defineComponent({
       basicInfoConfig,
       rainfallConfig,
       dynamic_rain_fileConfig,
-      manning_fileConfig,
-      manning_uniformConfig,
+      evaporation_fileConfig,
+      evaporation_uniformConfig,
       totalTimeConfig,
       detailTimeConfig,
       otherInfoConfig,
       formData,
       rainfallStyle,
-      manningStyle,
+      evaporateStyle,
       simTimeStyle,
       handleSaveConfig,
     };
@@ -176,6 +176,9 @@ export default defineComponent({
     color: #575862;
     background-color: #ebebeb;
     padding-left: 20px;
+  }
+  .split-add {
+    margin: 15px 0 5px;
   }
   .el-radio-group {
     display: block;

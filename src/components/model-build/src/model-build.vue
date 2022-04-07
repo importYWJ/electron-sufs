@@ -33,22 +33,23 @@
               :disable="infiltrateStyle === 'uniform' ? false : true"
             />
           </el-radio-group>
-          <!-- 蒸发速率 -->
-          <div class="split add">蒸发速率</div>
-          <el-radio-group v-model="evaporateStyle">
-            <el-radio label="file">蒸发速率文件</el-radio>
+          <el-radio-group v-model="manningStyle">
+            <!-- 曼宁系数 -->
+            <div class="split">曼宁系数配置</div>
+            <el-radio label="fpfric"> 统一曼宁系数 </el-radio>
             <wj-input
-              v-bind="evaporation_fileConfig"
+              v-bind="manning_uniformConfig"
               v-model="formData"
-              :disable="evaporateStyle === 'file' ? false : true"
+              :disable="manningStyle === 'fpfric' ? false : true"
             />
-            <el-radio label="uniform">通用蒸发速率</el-radio>
+            <el-radio label="manningfile"> 曼宁系数文件 </el-radio>
             <wj-input
-              v-bind="evaporation_uniformConfig"
+              v-bind="manning_fileConfig"
               v-model="formData"
-              :disable="evaporateStyle === 'uniform' ? false : true"
+              :disable="manningStyle === 'manningfile' ? false : true"
             />
           </el-radio-group>
+
           <!-- 地面监测点 -->
           <div class="split add">地面监测点</div>
           <wj-input v-bind="monitorConfig" v-model="formData" />
@@ -74,8 +75,8 @@ import {
   riverfileConfig,
   infiltration_fileConfig,
   infiltration_uniformConfig,
-  evaporation_fileConfig,
-  evaporation_uniformConfig,
+  manning_fileConfig,
+  manning_uniformConfig,
   monitorConfig,
   pipeModelConfig,
 } from "./config/model_build.config";
@@ -103,8 +104,7 @@ export default defineComponent({
     const formData = ref(formOriginData);
     // radio设置
     const infiltrateStyle = ref("file");
-    const evaporateStyle = ref("file");
-
+    const manningStyle = ref("fpfric");
     const store = useStore();
     const getModelItems = () => {
       pipeModelConfig.formItems[0].options = [];
@@ -150,13 +150,13 @@ export default defineComponent({
       riverfileConfig,
       infiltration_fileConfig,
       infiltration_uniformConfig,
-      evaporation_fileConfig,
-      evaporation_uniformConfig,
+      manning_fileConfig,
+      manning_uniformConfig,
       monitorConfig,
       pipeModelConfig,
       formData,
       infiltrateStyle,
-      evaporateStyle,
+      manningStyle,
       handleBuildModel,
     };
   },

@@ -19,6 +19,15 @@
             <el-button
               size="small"
               :icon="VideoPlay"
+              type="success"
+              round
+              @click="handleShowClick(scope.row)"
+            >
+              查看
+            </el-button>
+            <el-button
+              size="small"
+              :icon="VideoPlay"
               type="primary"
               round
               @click="handleRunClick(scope.row)"
@@ -119,6 +128,11 @@ export default defineComponent({
     );
     const dialogVisible = ref(false);
 
+    const handleShowClick = (item: any) => {
+      console.log("测试");
+      // 1. 请求看有没有结果
+      // 2. 有则关闭对话框并显示; 没有则显示一个MessageBox
+    };
     const handleRunClick = (item: any) => {
       store.dispatch("modelModule/modelRunAction", {
         pageUrl: "/simulate/run",
@@ -152,6 +166,7 @@ export default defineComponent({
       pageInfo,
       simulateDataCount,
       dialogVisible,
+      handleShowClick,
       handleRunClick,
       handleEditClick,
       handleDeleteClick,

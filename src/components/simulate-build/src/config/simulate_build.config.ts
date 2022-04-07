@@ -79,14 +79,13 @@ export const dynamic_rain_fileConfig: IInput = {
   },
 };
 
-export const manning_fileConfig: IInput = {
+export const evaporation_fileConfig: IInput = {
   inputItems: [
     {
-      field: "manningfile",
-      placeholder: "请打开曼宁系数文件...",
+      field: "evaporation",
+      placeholder: "请打开蒸发率文件...",
       hasButton: true,
       btnName: "打开文件",
-      accept: ".asc",
     },
   ],
   itemStyle: {
@@ -94,11 +93,11 @@ export const manning_fileConfig: IInput = {
   },
 };
 
-export const manning_uniformConfig: IInput = {
+export const evaporation_uniformConfig: IInput = {
   inputItems: [
     {
-      field: "fpfric",
-      placeholder: "请输入统一的曼宁系数...",
+      field: "evaporation",
+      placeholder: "请输入统一的蒸发率...",
     },
   ],
   itemStyle: {

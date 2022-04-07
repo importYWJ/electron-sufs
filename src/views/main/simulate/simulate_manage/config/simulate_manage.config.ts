@@ -39,6 +39,6 @@ export const simulateTableConfig: ITable = {
       slotName: "createDate",
     },
     { prop: "simulationmodel", label: "运算内核", minWidth: "180" },
-    { label: "情景操作", minWidth: "120", slotName: "handler" },
+    { label: "情景操作", minWidth: "160", slotName: "handler" },
   ],
 };

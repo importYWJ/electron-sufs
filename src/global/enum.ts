@@ -8,7 +8,9 @@ export enum ParModelParams {
   riverheight = "riverheight",
   riverelevation = "riverelevation",
   infiltration = "infiltration", // 模拟区域范围内统一的下渗速度，单位 m/s
-  evaporation = "evaporation", // 时序蒸发速度信息文件路径
+  fpfric = "fpfric", // 模拟区域范围内统一的曼宁糙率，无量纲
+  manningfile = "manningfile", // 曼宁糙率数据文件路径(优先级高于fpfric)
+
   stagefile = "stagefile", // 监测点文件路径
   inp_file = "inp_file", // SWMM5工程文件路径(耦合功能)
   /** 以下参数为默认/不暴露
@@ -39,8 +41,7 @@ export enum ParSimulateParams {
   saveint = "saveint", // 保存一次水深、流速、流量等结果的时间间隔，单位s
   massint = "massint", // 水体质量平衡检查的时间间隔，单位 s
   cfl = "cfl", // 水动力计算时间步长安全系数(默认0.7)
-  fpfric = "fpfric", // 模拟区域范围内统一的曼宁糙率，无量纲
-  manningfile = "manningfile", // 曼宁糙率数据文件路径(优先级高于fpfric)
+  evaporation = "evaporation", // 时序蒸发速度信息文件路径
   depththresh = "depththresh", // 开始进行水动力计算的水位差阈值，单位 m，默认值为 0.1
 }
 
