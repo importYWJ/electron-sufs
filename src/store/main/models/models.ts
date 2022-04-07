@@ -76,13 +76,16 @@ const modelModule: Module<IModelState, IRootState> = {
       console.log(response);
     },
     // 情景运行
-    async modelRunAction({ commit }, payload: any) {
-      const response = await runModel(
-        payload.pageUrl,
-        payload.modelID,
-        payload.simulateID
-      );
-      console.log(response);
+    async modelRunShowAction({ commit }, payload: any) {
+      // 返回值格式: {status: 0/1}
+      return new Promise((resolve, reject) => {
+        const response = runModel(
+          payload.pageUrl,
+          payload.modelID,
+          payload.simulateID
+        );
+        resolve(response);
+      });
     },
   },
 };

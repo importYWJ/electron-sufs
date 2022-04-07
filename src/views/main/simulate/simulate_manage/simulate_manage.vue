@@ -71,6 +71,7 @@ import {
   simulateTableConfig,
 } from "./config/simulate_manage.config";
 import { useStore } from "@/store";
+import { useRouter } from "vue-router";
 import { Edit, Delete, VideoPlay } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
 
@@ -128,26 +129,59 @@ export default defineComponent({
       () => store.state.modelModule.simulateCount
     );
     const dialogVisible = ref(false);
-
+    const router = useRouter();
+    const showMap = () => {
+      router.push({
+        path: "/main/simulate/simulate_run",
+      });
+    };
     const handleShowClick = (item: any) => {
-      console.log("测试");
-      // 1. 请求看有没有结果
-      // 2. 有则关闭对话框并显示; 没有则显示一个MessageBox
+      store
+        .dispatch("modelModule/modelRunShowAction", {
+          pageUrl: "/simulate/show",
+          modelID: modelInfo.value.modelID,
+          simulateID: item.sid,
+        })
+        .then((res) => {
+          if (res?.status === "1") {
+            // 1: 有情景数据, 切换到地图页面展示
+            showMap();
+          } else {
+            // 0: 无情景数据, 报错无法展示
+            ElNotification({
+              title: "Error",
+              message: `当前情景未运行...`,
+              type: "error",
+              position: "bottom-right",
+            });
+          }
+        });
     };
     const handleRunClick = (item: any) => {
       store
-        .dispatch("modelModule/modelRunAction", {
+        .dispatch("modelModule/modelRunShowAction", {
           pageUrl: "/simulate/run",
           modelID: modelInfo.value.modelID,
           simulateID: item.sid,
         })
         .then((res) => {
-          ElNotification({
-            title: "Success",
-            message: `开始运行情景...`,
-            type: "success",
-            position: "bottom-right",
-          });
+          if (res?.status === "1") {
+            // 1: 有情景数据, 报错无法运行
+            ElNotification({
+              title: "Error",
+              message: `当前情景已运行完毕...`,
+              type: "error",
+              position: "bottom-right",
+            });
+          } else {
+            ElNotification({
+              // 0: 无情景数据, 开始运行
+              title: "Success",
+              message: `开始运行情景...`,
+              type: "success",
+              position: "bottom-right",
+            });
+          }
         });
     };
     const handleEditClick = (item: any) => {
