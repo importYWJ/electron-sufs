@@ -72,6 +72,7 @@ import {
 } from "./config/simulate_manage.config";
 import { useStore } from "@/store";
 import { Edit, Delete, VideoPlay } from "@element-plus/icons-vue";
+import { ElNotification } from "element-plus";
 
 export default defineComponent({
   components: {
@@ -134,11 +135,20 @@ export default defineComponent({
       // 2. 有则关闭对话框并显示; 没有则显示一个MessageBox
     };
     const handleRunClick = (item: any) => {
-      store.dispatch("modelModule/modelRunAction", {
-        pageUrl: "/simulate/run",
-        modelID: modelInfo.value.modelID,
-        simulateID: item.sid,
-      });
+      store
+        .dispatch("modelModule/modelRunAction", {
+          pageUrl: "/simulate/run",
+          modelID: modelInfo.value.modelID,
+          simulateID: item.sid,
+        })
+        .then((res) => {
+          ElNotification({
+            title: "Success",
+            message: `开始运行情景...`,
+            type: "success",
+            position: "bottom-right",
+          });
+        });
     };
     const handleEditClick = (item: any) => {
       // 1. 根据item请求OriginData格式的数据

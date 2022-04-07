@@ -83,6 +83,7 @@ import {
 import WjForm from "@/base-ui/form";
 import WjInput from "@/base-ui/input";
 import { ParModelParams } from "@/global/enum";
+import { ElNotification } from "element-plus";
 
 export default defineComponent({
   props: {
@@ -138,10 +139,19 @@ export default defineComponent({
           parList.append(item, formData.value[item]);
         }
       }
-      store.dispatch("modelModule/modelConfigAction", {
-        pageUrl: "/model/model_build",
-        modelData: parList,
-      });
+      store
+        .dispatch("modelModule/modelConfigAction", {
+          pageUrl: "/model/model_build",
+          modelData: parList,
+        })
+        .then((res) => {
+          ElNotification({
+            title: "Success",
+            message: `模型构建完成...`,
+            type: "success",
+            position: "bottom-right",
+          });
+        });
     };
     return {
       basicInfoConfig,

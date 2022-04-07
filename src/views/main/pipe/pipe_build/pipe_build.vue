@@ -116,6 +116,7 @@ import WjForm from "@/base-ui/form";
 import { InpConduit, InpJunction, InpOutfall } from "@/global";
 import { useStore } from "@/store";
 import { InpBuildParams } from "@/global/enum";
+import { ElNotification } from "element-plus";
 
 export default defineComponent({
   components: {
@@ -228,10 +229,19 @@ export default defineComponent({
           inpList.append(item, formData.value[item]);
         }
       }
-      store.dispatch("pipeModule/pipeConfigAction", {
-        pageUrl: "/pipe/pipe_build",
-        modelData: inpList,
-      });
+      store
+        .dispatch("pipeModule/pipeConfigAction", {
+          pageUrl: "/pipe/pipe_build",
+          modelData: inpList,
+        })
+        .then((res) => {
+          ElNotification({
+            title: "Success",
+            message: `模型构建完成...`,
+            type: "success",
+            position: "bottom-right",
+          });
+        });
     };
     return {
       pipeLineFileConfig,

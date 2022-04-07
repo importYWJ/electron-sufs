@@ -79,6 +79,7 @@ import {
 } from "./config/simulate_build.config";
 import { useStore } from "@/store";
 import { ParSimulateParams } from "@/global/enum";
+import { ElNotification } from "element-plus";
 
 export default defineComponent({
   props: {
@@ -135,10 +136,19 @@ export default defineComponent({
           parList.append(item, formData.value[item]);
         }
       }
-      store.dispatch("modelModule/simulateConfigAction", {
-        pageUrl: "/simulate/simulate_build",
-        simulateData: parList,
-      });
+      store
+        .dispatch("modelModule/simulateConfigAction", {
+          pageUrl: "/simulate/simulate_build",
+          simulateData: parList,
+        })
+        .then((res) => {
+          ElNotification({
+            title: "Success",
+            message: `情景构建完成...`,
+            type: "success",
+            position: "bottom-right",
+          });
+        });
     };
     return {
       basicInfoConfig,
