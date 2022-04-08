@@ -169,6 +169,10 @@ export default defineComponent({
     );
 
     watch(conduitPath, () => {
+      if (conduitPath.value === "") {
+        store.commit("pipeModule/changeConduitFieldsList", []);
+        return;
+      }
       // 监听shp文件路径名称的改变执行post文件操作
       formData.value.ConduitID = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
@@ -185,6 +189,10 @@ export default defineComponent({
       });
     });
     watch(junctionPath, () => {
+      if (junctionPath.value === "") {
+        store.commit("pipeModule/changeJunctionFieldsList", []);
+        return;
+      }
       formData.value.JunctionID = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
       shpData.append("pipeID", formData.value.JunctionID.toString());
@@ -199,6 +207,10 @@ export default defineComponent({
       });
     });
     watch(outfallPath, () => {
+      if (outfallPath.value === "") {
+        store.commit("pipeModule/changeOutfallFieldsList", []);
+        return;
+      }
       formData.value.OutfallID = Math.round(new Date().getTime() / 1000);
       const shpData = new FormData();
       shpData.append("pipeID", formData.value.OutfallID.toString());

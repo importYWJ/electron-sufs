@@ -55,7 +55,15 @@
     <simulate-build></simulate-build>
   </el-dialog>
   <el-drawer v-model="showLog" title="运行日志">
-    <el-progress :percentage="50" />
+    <wj-card title="情景1">
+      <el-progress :percentage="50"></el-progress>
+      <el-divider />
+      <el-scrollbar max-height="80px" always>
+        <div v-for="o in 20" :key="o" class="text item">
+          {{ `[success][2022-04-08 10:10:10]: 输出${o}` }}
+        </div>
+      </el-scrollbar>
+    </wj-card>
   </el-drawer>
 </template>
 
@@ -63,6 +71,7 @@
 import { defineComponent, ref, computed } from "vue";
 import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 import WjBreadcrumb from "@/base-ui/breadcrumb";
+import WjCard from "@/base-ui/card";
 import { pathMapBreadcrumbs } from "@/utils/map-menus";
 import { useStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
@@ -81,6 +90,7 @@ export default defineComponent({
     ArrowLeftBold,
     ArrowRightBold,
     WjBreadcrumb,
+    WjCard,
     SimulateManage,
     SimulateBuild,
   },
