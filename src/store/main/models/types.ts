@@ -11,4 +11,5 @@ export interface IModelState {
   simulateList: any[];
   modelCount: number;
   simulateCount: number;
+  modelProgress: number;
 }

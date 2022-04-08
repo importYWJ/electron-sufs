@@ -128,6 +128,7 @@ export default defineComponent({
     const simulateDataCount = computed(
       () => store.state.modelModule.simulateCount
     );
+    const modelProgress = computed(() => store.state.modelModule.modelProgress);
     const dialogVisible = ref(false);
     const router = useRouter();
     const showMap = () => {
@@ -181,6 +182,21 @@ export default defineComponent({
               type: "success",
               position: "bottom-right",
             });
+            const interval = setInterval(() => {
+              if (modelProgress.value < 100) {
+                store.dispatch("modelModule/modelRunProgressAction", {
+                  pageUrl: "/simulate/GetProcess",
+                });
+              } else {
+                clearInterval(interval);
+                ElNotification({
+                  title: "Success",
+                  message: `情景运行完成...`,
+                  type: "success",
+                  position: "bottom-right",
+                });
+              }
+            }, 2000);
           }
         });
     };

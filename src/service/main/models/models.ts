@@ -48,3 +48,9 @@ export function runModel(
     params: { modelID, simulateID },
   });
 }
+
+export function getModelProgress(url: string): Promise<any> {
+  return wjRequest.get({
+    url: url,
+  });
+}

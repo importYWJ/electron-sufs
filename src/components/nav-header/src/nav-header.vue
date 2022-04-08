@@ -56,7 +56,7 @@
   </el-dialog>
   <el-drawer v-model="showLog" title="运行日志">
     <wj-card title="情景1">
-      <el-progress :percentage="50"></el-progress>
+      <el-progress :percentage="progress"></el-progress>
       <el-divider />
       <el-scrollbar max-height="80px" always>
         <div v-for="o in 20" :key="o" class="text item">
@@ -117,6 +117,8 @@ export default defineComponent({
         path: "/main/simulate/simulate_run",
       });
     };
+    // 进度条
+    const progress = computed(() => store.state.modelModule.modelProgress);
     return {
       isFold,
       handleFoldClick,
@@ -130,6 +132,7 @@ export default defineComponent({
       showSimulateBuildDialog,
       showSimulateManageDialog,
       showMap,
+      progress,
     };
   },
 });

@@ -7,6 +7,7 @@ import {
   deleteModelConfig,
   queryModelConfig,
   runModel,
+  getModelProgress,
 } from "@/service/main/models/models";
 
 const modelModule: Module<IModelState, IRootState> = {
@@ -17,6 +18,7 @@ const modelModule: Module<IModelState, IRootState> = {
       simulateList: [],
       modelCount: 0,
       simulateCount: 0,
+      modelProgress: 0,
     };
   },
   mutations: {
@@ -31,6 +33,9 @@ const modelModule: Module<IModelState, IRootState> = {
     },
     changeSimulateCount(state, simulateCount: number) {
       state.simulateCount = simulateCount;
+    },
+    changeModelProgress(state, modelProgress: number) {
+      state.modelProgress = modelProgress;
     },
   },
   actions: {
@@ -86,6 +91,11 @@ const modelModule: Module<IModelState, IRootState> = {
         );
         resolve(response);
       });
+    },
+    // 运行进度
+    async modelRunProgressAction({ commit }, payload: any) {
+      const modelProgress = await getModelProgress(payload.pageUrl);
+      commit("changeModelProgress", modelProgress.value);
     },
   },
 };
