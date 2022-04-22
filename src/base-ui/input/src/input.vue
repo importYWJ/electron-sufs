@@ -137,9 +137,9 @@ export default defineComponent({
   align-items: center;
   justify-content: space-between;
   flex-grow: 1;
-  .el-input {
-    padding-right: 10px;
-  }
+  // .el-input {
+  //   padding-right: 10px;
+  // }
   .el-button {
     width: 150px;
   }

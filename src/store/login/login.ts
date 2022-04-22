@@ -35,6 +35,31 @@ const loginModule: Module<ILoginState, IRootState> = {
           ],
         },
         {
+          id: 10,
+          name: "雷达建模",
+          type: 1,
+          url: "/main/radar",
+          icon: "el-icon-monitor",
+          children: [
+            {
+              id: 11,
+              name: "雷达建模",
+              type: 2,
+              url: "/main/radar/radar_build",
+              icon: "el-icon-monitor",
+              children: null,
+            },
+            {
+              id: 12,
+              name: "模型管理",
+              type: 2,
+              url: "/main/radar/radar_manage",
+              icon: "el-icon-monitor",
+              children: null,
+            },
+          ],
+        },
+        {
           id: 3,
           name: "时空建模",
           type: 1,

@@ -54,3 +54,13 @@ export function getModelProgress(url: string): Promise<any> {
     url: url,
   });
 }
+
+export function changeRadarList(url: string, radarList: any): Promise<any> {
+  return wjRequest.post({
+    url: url,
+    data: radarList,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}

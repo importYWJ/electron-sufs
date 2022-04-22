@@ -8,6 +8,7 @@ import {
   queryModelConfig,
   runModel,
   getModelProgress,
+  changeRadarList,
 } from "@/service/main/models/models";
 
 const modelModule: Module<IModelState, IRootState> = {
@@ -96,6 +97,11 @@ const modelModule: Module<IModelState, IRootState> = {
     async modelRunProgressAction({ commit }, payload: any) {
       const modelProgress = await getModelProgress(payload.pageUrl);
       commit("changeModelProgress", modelProgress.value);
+    },
+    // 雷达选择
+    async radarSelectAction({ commit }, payload: any) {
+      const result = await changeRadarList(payload.pageUrl, payload.radarList);
+      // commit("changeModelProgress", modelProgress.value);
     },
   },
 };
