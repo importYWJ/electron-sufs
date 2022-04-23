@@ -73,9 +73,7 @@ export default defineComponent({
     MapEchart,
   },
   setup() {
-    const formOriginData: any = {
-      radarField: "",
-    };
+    const formOriginData: any = {};
     const formData = ref(formOriginData);
     const store = useStore();
     const btnShowRadar = () => {
@@ -83,7 +81,7 @@ export default defineComponent({
       for (const item in formData.value) {
         radarList.append(item, formData.value[item]);
       }
-      store.dispatch("modelModule/radarSelectAction", {
+      store.dispatch("radarModule/radarSelectAction", {
         pageUrl: "/radar/select",
         radarList: radarList,
       });

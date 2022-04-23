@@ -3,6 +3,7 @@ import { IRootState, IStoreType } from "./types";
 import loginModule from "./login/login";
 import modelModule from "./main/models/models";
 import pipeModule from "./main/pipes/pipes";
+import radarModule from "./main/radar/radar";
 
 const store = createStore<IRootState>({
   state: {
@@ -14,6 +15,7 @@ const store = createStore<IRootState>({
     loginModule,
     modelModule,
     pipeModule,
+    radarModule,
   },
 });
 

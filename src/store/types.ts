@@ -1,6 +1,7 @@
 import { ILoginState } from "./login/types";
 import { IModelState } from "./main/models/types";
 import { IPipeState } from "./main/pipes/types";
+import { IRadarState } from "./main/radar/types";
 
 export interface IRootState {
   owner: string;
@@ -11,6 +12,7 @@ export interface IRootWithModule {
   loginModule: ILoginState;
   modelModule: IModelState;
   pipeModule: IPipeState;
+  radarModule: IRadarState;
 }
 
 export type IStoreType = IRootState & IRootWithModule;
