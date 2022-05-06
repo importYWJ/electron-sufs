@@ -117,6 +117,24 @@ const loginModule: Module<ILoginState, IRootState> = {
             },
           ],
         },
+
+        {
+          id: 13,
+          name: "数据驱动",
+          type: 1,
+          url: "/main/train",
+          icon: "el-icon-monitor",
+          children: [
+            {
+              id: 14,
+              name: "参数配置",
+              type: 2,
+              url: "/main/train/train_build",
+              icon: "el-icon-monitor",
+              children: null,
+            },
+          ],
+        },
       ],
     };
   },

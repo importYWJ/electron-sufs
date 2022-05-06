@@ -35,6 +35,13 @@
         <el-tooltip content="系统设置" placement="bottom" effect="light">
           <el-button :icon="Setting" @click="showLog = !showLog" circle />
         </el-tooltip>
+        <el-tooltip content="模型训练" placement="bottom" effect="light">
+          <el-button
+            :icon="TrendCharts"
+            @click="showParams = !showParams"
+            circle
+          />
+        </el-tooltip>
       </div>
     </div>
   </div>
@@ -65,6 +72,14 @@
       </el-scrollbar>
     </wj-card>
   </el-drawer>
+  <el-drawer v-model="showParams" title="训练参数配置">
+    <div class="split">模型超参数</div>
+    <wj-input v-bind="superParamsConfig" v-model="formData" />
+    <!-- 降雨数据 -->
+    <div class="split">网络结构搭建</div>
+    <div class="split">模型运行</div>
+    <el-button type="primary" @click="btnTrain">开始训练</el-button>
+  </el-drawer>
 </template>
 
 <script lang="ts">
@@ -83,7 +98,10 @@ import {
   Operation,
   Grid,
   Setting,
+  TrendCharts,
 } from "@element-plus/icons-vue";
+import { superParamsConfig } from "./config/train_params.config";
+import WjInput from "@/base-ui/input";
 
 export default defineComponent({
   components: {
@@ -93,6 +111,7 @@ export default defineComponent({
     WjCard,
     SimulateManage,
     SimulateBuild,
+    WjInput,
   },
   emits: ["foldChange"],
   setup(props, { emit }) {
@@ -109,6 +128,7 @@ export default defineComponent({
       return pathMapBreadcrumbs(userMenus, route.path);
     });
     const showLog = ref(false);
+    const showParams = ref(false);
     const showSimulateBuildDialog = ref(false);
     const showSimulateManageDialog = ref(false);
     const router = useRouter();
@@ -119,6 +139,16 @@ export default defineComponent({
     };
     // 进度条
     const progress = computed(() => store.state.modelModule.modelProgress);
+
+    // 临时: 训练参数表单数据
+    const formOriginData: any = {};
+    const formData = ref(formOriginData);
+    const btnTrain = () => {
+      store.dispatch("modelModule/DataModelRunAction", {
+        pageUrl: "/train/train_build",
+        modelData: formData,
+      });
+    };
     return {
       isFold,
       handleFoldClick,
@@ -128,11 +158,16 @@ export default defineComponent({
       Operation,
       Grid,
       Setting,
+      TrendCharts,
       showLog,
+      showParams,
       showSimulateBuildDialog,
       showSimulateManageDialog,
       showMap,
       progress,
+      formData,
+      superParamsConfig,
+      btnTrain,
     };
   },
 });
@@ -162,5 +197,17 @@ export default defineComponent({
 #title {
   font-weight: bold;
   font-size: 20px;
+}
+
+.split {
+  height: 35px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 15px;
+  color: #575862;
+  background-color: #ebebeb;
+  padding-left: 20px;
 }
 </style>

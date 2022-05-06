@@ -18,6 +18,7 @@ import "@arcgis/core/assets/esri/css/main.css";
 import Point from "@arcgis/core/geometry/Point";
 import Query from "@arcgis/core/rest/support/Query";
 import Sketch from "@arcgis/core/widgets/Sketch";
+import Popup from "@arcgis/core/widgets/Popup";
 
 export default defineComponent({
   props: {

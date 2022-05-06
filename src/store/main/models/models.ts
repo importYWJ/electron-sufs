@@ -8,6 +8,7 @@ import {
   queryModelConfig,
   runModel,
   getModelProgress,
+  getModelRunning,
 } from "@/service/main/models/models";
 
 const modelModule: Module<IModelState, IRootState> = {
@@ -96,6 +97,14 @@ const modelModule: Module<IModelState, IRootState> = {
     async modelRunProgressAction({ commit }, payload: any) {
       const modelProgress = await getModelProgress(payload.pageUrl);
       commit("changeModelProgress", modelProgress.value);
+    },
+
+    // [数据驱动]表单提交
+    async DataModelRunAction({ commit }, payload: any) {
+      const modelProgress = await getModelRunning(
+        payload.pageUrl,
+        payload.formData
+      );
     },
   },
 };
