@@ -79,6 +79,9 @@
     <div class="split">网络结构搭建</div>
     <div class="split">模型运行</div>
     <el-button type="primary" @click="btnTrain">开始训练</el-button>
+    <wj-card title="预测结果" v-show="showResult">
+      <line-echart></line-echart>
+    </wj-card>
   </el-drawer>
 </template>
 
@@ -102,6 +105,7 @@ import {
 } from "@element-plus/icons-vue";
 import { superParamsConfig } from "./config/train_params.config";
 import WjInput from "@/base-ui/input";
+import { LineEchart } from "@/components/page-echarts";
 
 export default defineComponent({
   components: {
@@ -112,6 +116,7 @@ export default defineComponent({
     SimulateManage,
     SimulateBuild,
     WjInput,
+    LineEchart,
   },
   emits: ["foldChange"],
   setup(props, { emit }) {
@@ -143,11 +148,16 @@ export default defineComponent({
     // 临时: 训练参数表单数据
     const formOriginData: any = {};
     const formData = ref(formOriginData);
+    const showResult = ref(false);
     const btnTrain = () => {
-      store.dispatch("modelModule/DataModelRunAction", {
-        pageUrl: "/train/train_build",
-        modelData: formData,
-      });
+      store
+        .dispatch("modelModule/DataModelRunAction", {
+          pageUrl: "/dataDiven/run",
+          modelData: formData,
+        })
+        .then(() => {
+          showResult.value = !showResult.value;
+        });
     };
     return {
       isFold,
@@ -168,6 +178,7 @@ export default defineComponent({
       formData,
       superParamsConfig,
       btnTrain,
+      showResult,
     };
   },
 });

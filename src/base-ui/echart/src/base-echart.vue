@@ -14,7 +14,7 @@ export default defineComponent({
   props: {
     width: {
       type: String,
-      default: "100%",
+      default: "480px",
     },
     height: {
       type: String,

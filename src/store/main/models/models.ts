@@ -101,10 +101,7 @@ const modelModule: Module<IModelState, IRootState> = {
 
     // [数据驱动]表单提交
     async DataModelRunAction({ commit }, payload: any) {
-      const modelProgress = await getModelRunning(
-        payload.pageUrl,
-        payload.formData
-      );
+      const results = await getModelRunning(payload.pageUrl, payload.formData);
     },
   },
 };
