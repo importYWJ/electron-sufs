@@ -5,7 +5,7 @@
         <arrow-left-bold />
       </template>
       <template v-else>
-        <arrow-right-bold />
+        <arrow-right-bold />  
       </template>
     </el-icon>
     <div class="content">
@@ -78,7 +78,9 @@
     <!-- 降雨数据 -->
     <div class="split">网络结构搭建</div>
     <div class="split">模型运行</div>
-    <el-button type="primary" @click="btnTrain">开始训练</el-button>
+    <el-button type="primary" @click="btnTrain" class="result"
+      >开始训练</el-button
+    >
     <wj-card title="预测结果" v-show="showResult">
       <line-echart></line-echart>
     </wj-card>
@@ -220,5 +222,10 @@ export default defineComponent({
   color: #575862;
   background-color: #ebebeb;
   padding-left: 20px;
+}
+
+.result {
+  margin-top: 10px;
+  width: 100%;
 }
 </style>

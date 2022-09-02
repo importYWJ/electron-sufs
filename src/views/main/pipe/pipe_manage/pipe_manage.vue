@@ -9,7 +9,7 @@
         @selectionChange="selectFoo"
       >
         <template #createDate="scope">
-          {{ $filters.formatTimestamp(scope.row.inpid) }}
+          {{ formatTimestamp(scope.row.inpid) }}
         </template>
         <template #handler="scope">
           <div class="handle-btns">
@@ -39,6 +39,7 @@ import WjTable from "@/base-ui/table";
 import { Edit, Delete } from "@element-plus/icons-vue";
 import { tableConfig } from "./config/pipe_manage.config";
 import { useStore } from "@/store";
+import { formatTimestamp } from "@/utils/format-date";
 
 export default defineComponent({
   components: {
@@ -88,6 +89,7 @@ export default defineComponent({
       handleSearchClick,
       handleDeleteClick,
       selectFoo,
+      formatTimestamp,
     };
   },
 });
