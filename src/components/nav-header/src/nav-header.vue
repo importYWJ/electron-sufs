@@ -5,7 +5,7 @@
         <arrow-left-bold />
       </template>
       <template v-else>
-        <arrow-right-bold />  
+        <arrow-right-bold />
       </template>
     </el-icon>
     <div class="content">
